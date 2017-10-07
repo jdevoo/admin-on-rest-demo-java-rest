@@ -107,11 +107,14 @@ public class DataInitService {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Authorization", "Bearer "+token);
         for (String key : keys) {
-            if (key.equals("customers")) {
-                JSONArray customers = ((JSONArray)jsonObj.get(key));
-                for (int i = 0; i < customers.length(); i++) {
-                    JSONObject customer = customers.getJSONObject(i);
-                    apiHandler.sendPost("http://localhost:8080/api/v1/customers/",customer.toString(), headers);
+            System.out.println(key);
+            if (key.equals("categories") ||
+                key.equals("customers")
+                ) {
+                JSONArray objects = ((JSONArray)jsonObj.get(key));
+                for (int i = 0; i < objects.length(); i++) {
+                    JSONObject object = objects.getJSONObject(i);
+                    apiHandler.sendPost("http://localhost:8080/api/v1/"+key+"/",object.toString(), headers);
                 }
             }
         }

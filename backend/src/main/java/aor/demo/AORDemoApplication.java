@@ -75,7 +75,7 @@ public class AORDemoApplication extends WebMvcAutoConfiguration{
         //bean.setSuffix(".jsp");
         return bean;
     }
-    
+
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
