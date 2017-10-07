@@ -1,6 +1,6 @@
 package aor.demo.crud.controllers;
 
-import aor.demo.crud.UploadFile;
+import aor.demo.crud.entities.UploadFile;
 import aor.demo.crud.repos.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

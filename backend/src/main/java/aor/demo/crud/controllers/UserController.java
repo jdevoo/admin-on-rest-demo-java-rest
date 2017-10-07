@@ -1,6 +1,6 @@
 package aor.demo.crud.controllers;
 
-import aor.demo.crud.PlatformUser;
+import aor.demo.crud.entities.PlatformUser;
 import aor.demo.crud.repos.AORSpecifications;
 import aor.demo.crud.repos.UserRepository;
 import aor.demo.crud.utils.ApiUtils;
