@@ -41,8 +41,8 @@ public class DataInitService {
 
         Client client = new Client();
         client.name = "client 1";
-        client.password = passEncodeProvider.getEncoder().encode("client1@example.com");
-        client.email = "client1@example.com";
+        client.password = passEncodeProvider.getEncoder().encode("client1");
+        client.username = "client1";
         clientRepository.save(client);
 
         Client clientRef = new Client();
@@ -64,8 +64,8 @@ public class DataInitService {
 
 
         PlatformUser admin = new PlatformUser();
-        admin.email = "admin";
-        admin.password = passEncodeProvider.getEncoder().encode("admin");
+        admin.username = "demo";
+        admin.password = passEncodeProvider.getEncoder().encode("demo");
         userRepository.save(admin);
 
 

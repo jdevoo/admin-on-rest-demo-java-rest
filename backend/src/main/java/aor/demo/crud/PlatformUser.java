@@ -16,14 +16,14 @@ import java.util.Set;
 @Entity
 @Where(clause="published=1")
 @Table( uniqueConstraints =  {
-    @UniqueConstraint(columnNames = {"email"}),
+    @UniqueConstraint(columnNames = {"username"}),
 })
 public class PlatformUser implements Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     public String name;
-    public String email;
+    public String username;
     public String location;
     public String role = getUserRole().getRole().toString().toLowerCase();
     public String password;
@@ -34,14 +34,14 @@ public class PlatformUser implements Principal {
 
     public PlatformUser(){}
 
-    public PlatformUser(String email, List<GrantedAuthority> authorities) {
-        this.email = email;
+    public PlatformUser(String username, List<GrantedAuthority> authorities) {
+        this.username = username;
         this.authorities = authorities;
     }
 
     @Override
     public String getName() {
-        return email;
+        return username;
     }
 
     @Override
@@ -49,9 +49,9 @@ public class PlatformUser implements Principal {
         return false;
     }
 
-    public static PlatformUser create(String email, List<GrantedAuthority> authorities) {
-        if (StringUtils.isBlank(email)) throw new IllegalArgumentException("Email is blank: " + email);
-        return new PlatformUser(email, authorities);
+    public static PlatformUser create(String username, List<GrantedAuthority> authorities) {
+        if (StringUtils.isBlank(username)) throw new IllegalArgumentException("Username is blank: " + username);
+        return new PlatformUser(username, authorities);
     }
 
     public Set<GrantedAuthority> getAuthorities() {
