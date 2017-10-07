@@ -1,7 +1,7 @@
 package aor.demo.crud.controllers;
 
 
-import aor.demo.crud.ExampleEntity;
+import aor.demo.crud.entities.Example;
 import aor.demo.crud.repos.AORSpecifications;
 import aor.demo.crud.repos.ExampleRepository;
 import aor.demo.crud.utils.ApiUtils;
@@ -15,37 +15,37 @@ public class ExampleController {
     private ExampleRepository repo;
 
     @Autowired
-    private AORSpecifications<ExampleEntity> specification;
+    private AORSpecifications<Example> specification;
 
     @Autowired
     private ApiUtils utils;
 
     @RequestMapping(value = "examples", method = RequestMethod.POST)
-    public ExampleEntity create(@RequestBody ExampleEntity example) {
+    public Example create(@RequestBody Example example) {
         return repo.save(example);
     }
 
     @RequestMapping(value = "examples/{id}", method = RequestMethod.PUT)
-    public ExampleEntity update(@RequestBody ExampleEntity example, @PathVariable int id) {
+    public Example update(@RequestBody Example example, @PathVariable int id) {
         example.id = id;
         return repo.save(example);
     }
 
     @RequestMapping(value = "examples/{id}/published/{value}", method = RequestMethod.POST)
-    public ExampleEntity publishedUpdate(@PathVariable int id, @PathVariable boolean value) {
-        ExampleEntity example = repo.findOne(id);
+    public Example publishedUpdate(@PathVariable int id, @PathVariable boolean value) {
+        Example example = repo.findOne(id);
         example.published = value;
         return repo.save(example);
     }
 
 
     @RequestMapping(value = "examples/{id}", method = RequestMethod.GET)
-    public ExampleEntity getById(@PathVariable int id) {
+    public Example getById(@PathVariable int id) {
         return repo.findOne(id);
     }
 
     @RequestMapping(value = "examples", method = RequestMethod.GET)
-    public Iterable<ExampleEntity> filterBy(
+    public Iterable<Example> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
             @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
         return utils.filterByHelper(repo, specification, filterStr, rangeStr, sortStr);

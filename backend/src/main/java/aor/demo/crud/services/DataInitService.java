@@ -2,9 +2,9 @@ package aor.demo.crud.services;
 
 
 import aor.demo.auth.PasswordEncoderProvider;
-import aor.demo.crud.Client;
-import aor.demo.crud.ExampleEntity;
-import aor.demo.crud.PlatformUser;
+import aor.demo.crud.entities.Client;
+import aor.demo.crud.entities.Example;
+import aor.demo.crud.entities.PlatformUser;
 import aor.demo.crud.repos.ClientRepository;
 import aor.demo.crud.repos.ExampleRepository;
 import aor.demo.crud.repos.UserRepository;
@@ -49,15 +49,12 @@ public class DataInitService {
         clientRef.id = 1;
 
 
-        ExampleEntity e1 = new ExampleEntity();
-        e1.dateStarted = "2017-02-22T22:00:00.000Z";
+        Example e1 = new Example();
         e1.client = clientRef;
 
 
-        ExampleEntity e2 = new ExampleEntity();
-        e2.dateStarted = "2016-02-21T22:00:00.000Z";
+        Example e2 = new Example();
         e2.client = clientRef;
-        e2.isResolved = true;
 
         exampleRepository.save(e1);
         exampleRepository.save(e2);

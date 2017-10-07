@@ -1,4 +1,4 @@
-package aor.demo.crud;
+package aor.demo.crud.entities;
 
 import aor.demo.crud.enums.Role;
 import com.fasterxml.jackson.annotation.JsonCreator;

@@ -1,6 +1,6 @@
 package aor.demo.auth;
 
-import aor.demo.crud.PlatformUser;
+import aor.demo.crud.entities.PlatformUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
