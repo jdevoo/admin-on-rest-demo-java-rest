@@ -39,6 +39,13 @@ export default class APIUtils {
 
     }
 
+    static snakeToCamelCase(snakeString) {
+    	return snakeString.replace(/_([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    }
+
+    static camelToSnakeCase(camelString) {
+    	return camelString.replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
+    }
 
     /***** Response utils *****/
     static prepareGetListResponse(rows, embeddedKeys) {
@@ -120,7 +127,7 @@ export default class APIUtils {
             ]);
         }
         if (params.sort) {
-            field = params.sort.field;
+            field = APIUtils.snakeToCamelCase(params.sort.field);
             order = params.sort.order;
             query.sort = JSON.stringify([field, order]);
         }
