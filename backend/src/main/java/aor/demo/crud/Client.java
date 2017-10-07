@@ -19,8 +19,8 @@ public class Client extends PlatformUser {
         super();
 
     }
-    public Client(String email, List<GrantedAuthority> roles) {
-        super(email, roles);
+    public Client(String username, List<GrantedAuthority> roles) {
+        super(username, roles);
     }
     @Override
     public UserRole getUserRole() {

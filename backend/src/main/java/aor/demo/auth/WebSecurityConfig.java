@@ -8,12 +8,13 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
@@ -31,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(FILE_ENDPOINT);
+        web.ignoring().antMatchers(FILE_ENDPOINT, SWAGGER_UI_PATH);
     }
 
     @Override
@@ -41,12 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.POST, LOGIN_ENDPOINT).permitAll()
                 .antMatchers(HttpMethod.GET, FILE_ENDPOINT).permitAll()
-                .antMatchers(HttpMethod.GET, SWAGGER_UI_PATH).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // We filter the api/login requests
                 .addFilterBefore(new JWTLoginFilter(LOGIN_ENDPOINT, authenticationManager()),
-                    UsernamePasswordAuthenticationFilter.class)
+                        UsernamePasswordAuthenticationFilter.class)
                 // And filter other requests to check the presence of JWT in header
                 .addFilterBefore(new JWTAuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class);
@@ -54,11 +54,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Create a default account
-        auth.inMemoryAuthentication()
-                .withUser("demo")
-                .password("demo")
-                .roles("administrator");
 
         auth.authenticationProvider(authenticationProvider());
     }
