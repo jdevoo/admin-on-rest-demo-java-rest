@@ -8,8 +8,19 @@ import aor.demo.crud.entities.PlatformUser;
 import aor.demo.crud.repos.ClientRepository;
 import aor.demo.crud.repos.ExampleRepository;
 import aor.demo.crud.repos.UserRepository;
+import aor.demo.crud.utils.ApiHandler;
+import aor.demo.crud.utils.JSON;
+import com.google.common.base.CaseFormat;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.ServletContext;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class DataInitService {
@@ -26,8 +37,17 @@ public class DataInitService {
     @Autowired
     private PasswordEncoderProvider passEncodeProvider;
 
+    @Autowired
+    ServletContext context;
+
+    @Autowired
+    ApiHandler apiHandler;
+
 
     public void init() {
+
+
+
 
 
 //        UploadFile file = new UploadFile();
@@ -66,15 +86,53 @@ public class DataInitService {
         userRepository.save(admin);
 
 
+        File dataFile = new File(context.getRealPath("/WEB-INF/uploaded/data.js"));
+        FileInputStream fis = null;
+        JSONObject jsonObj = null;
+        try {
+            fis = new FileInputStream(dataFile);
+            byte[] data = new byte[(int) dataFile.length()];
+            fis.read(data);
+            fis.close();
+            String dataStr = new String(data, "UTF-8");
+            jsonObj = JSON.toJsonObject(dataStr);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Set<String> keys = jsonObj.keySet();
+        String token = apiHandler.authenticate("demo", "demo");
+        Map<String, String> headers = new HashMap<>();
+        headers.put("X-Authorization", "Bearer "+token);
+        for (String key : keys) {
+            if (key.equals("customers")) {
+                JSONArray customers = ((JSONArray)jsonObj.get(key));
+                for (int i = 0; i < customers.length(); i++) {
+                    JSONObject customer = convertKeysToCamelCase(customers.getJSONObject(i));
+                    apiHandler.sendPost("http://localhost:8080/api/v1/customers/",customer.toString(), headers);
+                }
+
+
+            }
+        }
 
 
 
 
 
 
+    }
 
-
-
-
+    public static JSONObject convertKeysToCamelCase(JSONObject object) {
+        JSONObject obj = new JSONObject();
+        Set<String> keys = object.keySet();
+        for (String key : keys) {
+            String camelCaseKey = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key);
+            Object val = object.get(key);
+            obj.put(camelCaseKey, val);
+        }
+        return obj;
     }
 }

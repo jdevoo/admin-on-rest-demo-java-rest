@@ -35,7 +35,6 @@ const factory = function(resource) {
 
 
 export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
-    debugger;
     /**
      * @param {String} type One of the constants appearing at the top if this file, e.g. 'UPDATE'
      * @param {String} resource Name of the resource to fetch, e.g. 'posts'
