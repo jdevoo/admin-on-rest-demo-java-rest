@@ -110,29 +110,10 @@ public class DataInitService {
             if (key.equals("customers")) {
                 JSONArray customers = ((JSONArray)jsonObj.get(key));
                 for (int i = 0; i < customers.length(); i++) {
-                    JSONObject customer = convertKeysToCamelCase(customers.getJSONObject(i));
+                    JSONObject customer = customers.getJSONObject(i);
                     apiHandler.sendPost("http://localhost:8080/api/v1/customers/",customer.toString(), headers);
                 }
-
-
             }
         }
-
-
-
-
-
-
-    }
-
-    public static JSONObject convertKeysToCamelCase(JSONObject object) {
-        JSONObject obj = new JSONObject();
-        Set<String> keys = object.keySet();
-        for (String key : keys) {
-            String camelCaseKey = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key);
-            Object val = object.get(key);
-            obj.put(camelCaseKey, val);
-        }
-        return obj;
     }
 }
