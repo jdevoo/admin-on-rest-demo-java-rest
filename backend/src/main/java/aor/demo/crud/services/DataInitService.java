@@ -58,26 +58,26 @@ public class DataInitService {
 //        fileRef.id = 1;
 
 
-
-        Client client = new Client();
-        client.name = "client 1";
-        client.password = passEncodeProvider.getEncoder().encode("client1");
-        client.username = "client1";
-        clientRepository.save(client);
-
-        Client clientRef = new Client();
-        clientRef.id = 1;
-
-
-        Example e1 = new Example();
-        e1.client = clientRef;
-
-
-        Example e2 = new Example();
-        e2.client = clientRef;
-
-        exampleRepository.save(e1);
-        exampleRepository.save(e2);
+//
+//        Client client = new Client();
+//        client.name = "client 1";
+//        client.password = passEncodeProvider.getEncoder().encode("client1");
+//        client.username = "client1";
+//        clientRepository.save(client);
+//
+//        Client clientRef = new Client();
+//        clientRef.id = 1;
+//
+//
+//        Example e1 = new Example();
+//        e1.client = clientRef;
+//
+//
+//        Example e2 = new Example();
+//        e2.client = clientRef;
+//
+//        exampleRepository.save(e1);
+//        exampleRepository.save(e2);
 
 
         PlatformUser admin = new PlatformUser();
@@ -109,7 +109,7 @@ public class DataInitService {
         for (String key : keys) {
             System.out.println(key);
             if (key.equals("categories") ||
-                key.equals("customers")
+                key.equals("customers") || key.equals("products")
                 ) {
                 JSONArray objects = ((JSONArray)jsonObj.get(key));
                 for (int i = 0; i < objects.length(); i++) {

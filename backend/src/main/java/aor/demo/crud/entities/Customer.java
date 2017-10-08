@@ -7,9 +7,9 @@ import javax.persistence.*;
 
 @Entity
 @Where(clause="published=1")
+@TableGenerator(name="customer", initialValue=0, allocationSize=50)
 public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy=GenerationType.TABLE, generator="customer")
     public int id;
     public String firstName;
     public String lastName;
