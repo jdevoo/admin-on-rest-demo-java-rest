@@ -41,7 +41,7 @@ Deploy the build to GitHub gh-pages.
 
 ## Back-End
 
-This backend implementation is a considerable effort to migrate away from Headless Drupal (PHP) to Java Spring backend/MySQL using admin-on-rest as front-end. The main reasons including: lack of versioning for backend changes (we had to take data dumps and keep a txt with Drupal changes), time consuming configuration of Views involving many entities and fields, in need of many (some times non-existing) Plugins to do common things, not native REST implementation, queries involving a ton of tables due to Drupal field reusability among different nodes, difficulty combining drupal tables with flat tables for big-data and analytics, etc..
+This backend implementation is the result of considerable effort to use admin-on-rest as front-end but migrate away from Headless Drupal backend (PHP) to Java Spring backend/MySQL. The main reasons including: lack of versioning for backend changes (we had to take data dumps and keep a txt with Drupal changes), time consuming configuration of Views involving many entities and fields, in need of many (some times non-existing) Plugins to do common things, not native REST implementation, queries involving a ton of tables due to Drupal field reusability among different nodes, difficulty combining drupal tables with flat tables for big-data and analytics, etc..
 
 ## Configuration
 
