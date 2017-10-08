@@ -110,7 +110,7 @@ public class DataInitService {
         userRepository.save(admin);
 
 
-        File dataFile = new File(context.getRealPath("/WEB-INF/uploaded/data.js"));
+        File dataFile = new File(context.getRealPath("/WEB-INF/uploaded/data.json"));
         FileInputStream fis = null;
         JSONObject jsonObj = null;
         try {
