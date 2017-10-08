@@ -49,8 +49,7 @@ You need a database called demo. The credentials are being configured in applica
 
 ### Features
 
-- Is the result of long time effort to migrate away from admin-on-rest + Headless Drupal (PHP) to admin-on-rest + Java Spring backend/MySQL due to many issues we had with Headless Drupal like: lack of flexibility of backend, difficulty configuring complex Views, need of many Plugins to do common things, not native REST implementation, queries involving many many tables due to Drupal field reusability among different nodes, difficulty combining its database with flat tables for big-data and analytics. 
-- Automatic Generated database that its tables are populated and dropped according to the Java classes annotated with `@Entity`
+- Automatic GeneratION of database tables according to the Java classes annotated with `@Entity`
 - Rest API based on admin-on-rest conventions (e.g resource names and calling signatures: https://marmelab.com/admin-on-rest/RestClients.html)
 - Built-in User Authentication (followed this implementation: https://auth0.com/blog/securing-spring-boot-with-jwts/)
 - Paging and Sorting support using `PagingAndSortingRepository` provided by Java Spring-Data
