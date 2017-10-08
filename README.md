@@ -49,7 +49,7 @@ You need a database called demo. The credentials are being configured in applica
 
 ### Features
 
-- Automatic GeneratION of database tables according to the Java classes annotated with `@Entity`
+- Automatic Generation of database tables according to the Java classes annotated with `@Entity`
 - Rest API based on admin-on-rest conventions (e.g resource names and calling signatures: https://marmelab.com/admin-on-rest/RestClients.html)
 - Built-in User Authentication (followed this implementation: https://auth0.com/blog/securing-spring-boot-with-jwts/)
 - Paging and Sorting support using `PagingAndSortingRepository` provided by Java Spring-Data
