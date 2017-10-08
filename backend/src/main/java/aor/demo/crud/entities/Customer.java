@@ -9,7 +9,7 @@ import java.util.Collection;
 @Entity
 @Where(clause="published=1")
 public class Customer {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     public String firstName;
     public String lastName;

@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Where(clause="published=1")
 public class Product {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     public String reference;
     public float width;

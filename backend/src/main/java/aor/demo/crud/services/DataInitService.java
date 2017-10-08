@@ -103,7 +103,7 @@ public class DataInitService {
         String token = apiHandler.authenticate("demo", "demo");
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Authorization", "Bearer "+token);
-        String[] keys = {"categories", "customers", "products", "commands"};
+        String[] keys = {"categories", "customers", "products", "commands", "reviews"};
 
 
 
