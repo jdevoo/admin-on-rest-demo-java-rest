@@ -4,9 +4,11 @@ package aor.demo.crud.services;
 import aor.demo.auth.PasswordEncoderProvider;
 import aor.demo.crud.entities.Client;
 import aor.demo.crud.entities.Example;
+import aor.demo.crud.entities.Group;
 import aor.demo.crud.entities.PlatformUser;
 import aor.demo.crud.repos.ClientRepository;
 import aor.demo.crud.repos.ExampleRepository;
+import aor.demo.crud.repos.GroupRepository;
 import aor.demo.crud.repos.UserRepository;
 import aor.demo.crud.utils.ApiHandler;
 import aor.demo.crud.utils.JSON;
@@ -31,6 +33,9 @@ public class DataInitService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Autowired
     private PasswordEncoderProvider passEncodeProvider;
@@ -76,6 +81,27 @@ public class DataInitService {
 //
 //        exampleRepository.save(e1);
 //        exampleRepository.save(e2);
+
+        //collector,compulsive,regular, returns, reviewer, ordered_once
+        Group collector = new Group("collector");
+        groupRepository.save(collector);
+
+        Group compulsive = new Group("compulsive");
+        groupRepository.save(compulsive);
+
+        Group regular = new Group("regular");
+        groupRepository.save(regular);
+
+        Group returns = new Group("returns");
+        groupRepository.save(returns);
+
+        Group reviewer = new Group("reviewer");
+        groupRepository.save(reviewer);
+
+        Group orderedOnce = new Group("ordered_once");
+        groupRepository.save(orderedOnce);
+
+
 
 
         PlatformUser admin = new PlatformUser();
