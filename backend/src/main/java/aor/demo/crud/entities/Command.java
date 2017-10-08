@@ -1,5 +1,6 @@
 package aor.demo.crud.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -29,5 +30,14 @@ public class Command {
 
     @OneToMany(cascade = {CascadeType.ALL})
     public Set<QuantifiedProduct> basket = new HashSet<>();
+
+
+    public Command() {}
+
+    @JsonCreator
+    public Command(int id) {
+        this.id = id;
+    }
+
 
 }
