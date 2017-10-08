@@ -1,4 +1,4 @@
-# Admin-on-rest Demo + Java REST Backend
+# Admin-on-rest Demo + Java Spring Boot/MySQL REST Backend
 
 This is a demo of the [admin-on-rest](https://github.com/marmelab/admin-on-rest) library for React.js. It creates a working administration for a fake poster shop named Posters Galore. You can test it online at http://marmelab.com/admin-on-rest-demo.
 
