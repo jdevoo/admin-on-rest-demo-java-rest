@@ -46,8 +46,6 @@ public class AORSpecifications<T> {
     }
     public Specification<T> equalToEachColumn(HashMap<String,Object> map) {
 
-        convertToCamelCase(map);
-
         return new Specification<T>() {
             @Override
             public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
@@ -110,18 +108,6 @@ public class AORSpecifications<T> {
                 return builder.and(predicates.toArray(new Predicate[0]));
             }
         };
-    }
-
-
-    private void convertToCamelCase(HashMap<String, Object> snakeCaseMap) {
-        Set<String> keys = snakeCaseMap.keySet();
-        for (String key: keys) {
-
-            Object val = snakeCaseMap.get(key);
-            String camelCaseKey = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key);
-            snakeCaseMap.remove(key);
-            snakeCaseMap.put(camelCaseKey, val);
-        }
     }
 
  }

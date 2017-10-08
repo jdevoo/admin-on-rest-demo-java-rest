@@ -127,7 +127,7 @@ export default class APIUtils {
             ]);
         }
         if (params.sort) {
-            field = APIUtils.snakeToCamelCase(params.sort.field);
+            field = params.sort.field;
             order = params.sort.order;
             query.sort = JSON.stringify([field, order]);
         }
