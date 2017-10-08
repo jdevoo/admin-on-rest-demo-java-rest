@@ -1,18 +1,18 @@
-# Admin-on-rest Demo
+# Admin-on-rest Demo + Java Spring Boot/MySQL REST Backend
 
 This is a demo of the [admin-on-rest](https://github.com/marmelab/admin-on-rest) library for React.js. It creates a working administration for a fake poster shop named Posters Galore. You can test it online at http://marmelab.com/admin-on-rest-demo.
 
 [![admin-on-rest-demo](https://marmelab.com/admin-on-rest/img/admin-on-rest-demo-still.png)](https://vimeo.com/205118063)
 
-Admin-on-rest usually requires a REST server to provide data. In this demo however, the REST server is simulated by the browser (using [FakeRest](https://github.com/marmelab/FakeRest)). You can see the source data in [public/data.js](https://github.com/marmelab/admin-on-rest-demo/tree/master/public/data.js).
+Admin-on-rest requires a REST server which is provided in this bundle in the /backend folder
 
 To explore the source code, start with [src/index.js](https://github.com/marmelab/admin-on-rest-demo/blob/master/src/index.js).
 
 **Note**: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-## Available Scripts
+## Front-End 
 
-In the project directory, you can run:
+In the project directory /src, you can run:
 
 ### `npm start`
 
@@ -38,3 +38,34 @@ Your app is ready to be deployed!
 ### `npm run deploy`
 
 Deploy the build to GitHub gh-pages.
+
+## Back-End
+
+This backend implementation is the result of considerable effort to use admin-on-rest as front-end but migrate away from Headless Drupal backend (PHP) to Java Spring backend/MySQL. The main reasons including: lack of versioning for backend changes (we had to take data dumps and keep a txt with Drupal changes), time consuming configuration of Views involving many entities and fields, in need of many (some times non-existing) Plugins to do common things, not native REST implementation, queries involving a ton of tables due to Drupal field reusability among different nodes, difficulty combining drupal tables with flat tables for big-data and analytics, etc..
+
+## Configuration
+
+You need a database called demo. The credentials are being configured in application.properties. Open the project using existing resources and select Maven from IntelliJ Idea menu. Run AORDemoApplication.java that will start a Java Spring Boot Application on http://localhost:8080
+
+### Features
+
+- Automatic Generation of database tables according to the Java classes annotated with `@Entity`
+- Automatic filling of data from https://raw.githubusercontent.com/zifnab87/admin-on-rest-demo-java/master/backend/src/main/webapp/WEB-INF/uploaded/data.js
+- Rest API based on admin-on-rest conventions (e.g resource names and calling signatures: https://marmelab.com/admin-on-rest/RestClients.html)
+- Built-in User Authentication (followed this implementation: https://auth0.com/blog/securing-spring-boot-with-jwts/)
+- Paging and Sorting support using `PagingAndSortingRepository` provided by Java Spring-Data
+- Text Search among all text fields using q parameter 
+- Exact Match filtering among the rest of the fields of a resource
+- All query building is happening behind the scenes using Specifications and Criteria API 
+- Easily expandable by adding a new `@Entity` class, extending `GenericRepository<T>` and making a similar Controller to the existing ones 
+
+### Future work
+
+- Make the project runnable through Maven - currently it is a IntelliJ Idea Maven project
+- Be able to combine results from Text Search and Exact Match filtering
+- Indexes that might be missing currently
+- some fixes for embedded lists for some of resources
+- Swagger-UI needs to be excluded properly from authentication
+
+
+
