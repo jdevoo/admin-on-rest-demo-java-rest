@@ -10,7 +10,7 @@ import {
 } from 'admin-on-rest';
 
 
-import {customer, segment, order, poster, category, review} from './entities';
+import {customer, segment, command, product, category, review} from './entities';
 import APIUtils from  './apiUtils';
 
 
@@ -25,8 +25,8 @@ const factory = function(resource) {
     switch(resource) {
         case "customers": return customer;
         case "segments": return segment;
-        case "commands": return order;
-        case "posters": return poster;
+        case "commands": return command;
+        case "products": return product;
         case "categories": return category;
         case "reviews": return review;
         default: return null;
