@@ -92,7 +92,7 @@ export default class APIUtils {
                 result[key] = val;
             }
             else if (valIsObject && rowInList) {
-                result[key] = [val.id];
+                result[key] = val.id;
             }
             else if (valIsObject && !rowInList) {
                 result[key] = val.id;
@@ -137,10 +137,18 @@ export default class APIUtils {
         if (Array.isArray(params.ids)) {
             params.filter.id = params.ids;
         }
-
+        debugger;
         if (params.filter) {
+            for (let prop in params.filter) {
+                let value = params.filter[prop];
+                delete params.filter[prop];
+                let curatedProp = APIUtils.snakeToCamelCase(prop);
+                params.filter[curatedProp] = value;
+            }
+
             query.filter = JSON.stringify(params.filter)
         }
+        debugger;
         return `${stringify(query)}`;
     }
 
