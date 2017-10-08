@@ -1,5 +1,6 @@
 package aor.demo.crud.repos;
 
+import com.google.common.base.CaseFormat;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AORSpecifications<T> {
@@ -42,15 +44,15 @@ public class AORSpecifications<T> {
         allowdRefTypes.add("set");
         return allowdRefTypes.contains(className.toLowerCase());
     }
-
     public Specification<T> equalToEachColumn(HashMap<String,Object> map) {
+
+        convertToCamelCase(map);
 
         return new Specification<T>() {
             @Override
             public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 
                 final List<Predicate> predicates = new ArrayList<>();
-
                 root.getModel().getAttributes().stream().forEach(a ->
                     {
                         Predicate pred = null;
@@ -82,8 +84,8 @@ public class AORSpecifications<T> {
                         }
                         predicates.add(pred);
 
-                        if (map.containsKey(a.getName()+"_lte")) {
-                            Object val = map.get(a.getName()+"_lte");
+                        if (map.containsKey(a.getName()+"Lte")) {
+                            Object val = map.get(a.getName()+"Lte");
                             if (val instanceof String) {
                                 pred = builder.lessThanOrEqualTo(root.get(a.getName()), ((String) val).toLowerCase());
                                 predicates.add(pred);
@@ -93,8 +95,8 @@ public class AORSpecifications<T> {
                                 predicates.add(pred);
                             }
                         }
-                        if (map.containsKey(a.getName()+"_gte")) {
-                            Object val = map.get(a.getName()+"_gte");
+                        if (map.containsKey(a.getName()+"Gte")) {
+                            Object val = map.get(a.getName()+"Gte");
                             if (val instanceof String) {
                                 pred = builder.greaterThanOrEqualTo(root.get(a.getName()), ((String) val).toLowerCase());
                                 predicates.add(pred);
@@ -108,6 +110,18 @@ public class AORSpecifications<T> {
                 return builder.and(predicates.toArray(new Predicate[0]));
             }
         };
+    }
+
+
+    private void convertToCamelCase(HashMap<String, Object> snakeCaseMap) {
+        Set<String> keys = snakeCaseMap.keySet();
+        for (String key: keys) {
+
+            Object val = snakeCaseMap.get(key);
+            String camelCaseKey = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, key);
+            snakeCaseMap.remove(key);
+            snakeCaseMap.put(camelCaseKey, val);
+        }
     }
 
  }
