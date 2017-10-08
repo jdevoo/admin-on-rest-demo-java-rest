@@ -58,14 +58,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 return entity.getManyRequest(params);
 
             case GET_MANY_REFERENCE:
-                // if ("failures" === resource) {
-                //     params.filter = {pvPlant : params.id}
-                //     return failure.getListWithFilterRequest(params);
-                // }
-                // else if("maintenances" === resource) {
-                //     params.filter = {pvPlant : params.id}
-                //     return maintenance.getListWithFilterRequest(params);
-                // }
+                if ("reviews" === resource) {
+                    params.filter.product_id = params.target_id;
+                    return product.getListWithFilterRequest(params);
+                }
 
             case UPDATE:
                 return entity.editRequest(params.id, params.data);
