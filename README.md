@@ -41,10 +41,15 @@ Deploy the build to GitHub gh-pages.
 
 ## Back-End
 
-You need a database called demo. The credentials are being configured in application.properties. Open the project using existing resources and select Maven form IntelliJ Idea menu.
+This backend implementation is a considerable effort to migrate away from Headless Drupal (PHP) to Java Spring backend/MySQL using admin-on-rest as front-end. The reason were numerous issues including we had: lack of flexibility of backend, time consuming configuration of Views involving many entities and fields, in need of many (some times non-existing) Plugins to do common things, not native REST implementation, queries involving a ton of tables due to Drupal field reusability among different nodes, difficulty combining drupal tables with flat tables for big-data and analytics, etc..
+
+## Configuration
+
+You need a database called demo. The credentials are being configured in application.properties. Open the project using existing resources and select Maven from IntelliJ Idea menu.
 
 ### Features
 
+- Is the result of long time effort to migrate away from admin-on-rest + Headless Drupal (PHP) to admin-on-rest + Java Spring backend/MySQL due to many issues we had with Headless Drupal like: lack of flexibility of backend, difficulty configuring complex Views, need of many Plugins to do common things, not native REST implementation, queries involving many many tables due to Drupal field reusability among different nodes, difficulty combining its database with flat tables for big-data and analytics. 
 - Automatic Generated database that its tables are populated and dropped according to the Java classes annotated with `@Entity`
 - Rest API based on admin-on-rest conventions (e.g resource names and calling signatures: https://marmelab.com/admin-on-rest/RestClients.html)
 - Built-in User Authentication (followed this implementation: https://auth0.com/blog/securing-spring-boot-with-jwts/)
@@ -57,9 +62,10 @@ You need a database called demo. The credentials are being configured in applica
 ### Future work
 
 https://marmelab.com/admin-on-rest/RestClients.html
+- Make the project runnable through Maven - currently it is a IntelliJ Idea Maven project
 - Be able to combine results from Text Search and Exact Match filtering
 - Indexes that might be missing currently
 - some fixes for embedded lists for some of resources
-- make the project runnable through Maven - currently it is a IntelliJ Idea Maven project
+
 
 
