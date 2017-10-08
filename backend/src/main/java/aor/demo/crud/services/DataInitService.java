@@ -18,9 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class DataInitService {
@@ -102,21 +100,46 @@ public class DataInitService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Set<String> keys = jsonObj.keySet();
         String token = apiHandler.authenticate("demo", "demo");
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Authorization", "Bearer "+token);
+        String[] keys = {"categories", "customers", "products", "commands"};
+
+
+
         for (String key : keys) {
-            System.out.println(key);
-            if (key.equals("categories") ||
-                key.equals("customers") || key.equals("products")
-                ) {
-                JSONArray objects = ((JSONArray)jsonObj.get(key));
-                for (int i = 0; i < objects.length(); i++) {
-                    JSONObject object = objects.getJSONObject(i);
-                    apiHandler.sendPost("http://localhost:8080/api/v1/"+key+"/",object.toString(), headers);
+            JSONArray objects = ((JSONArray)jsonObj.get(key));
+            for (int i = 0; i < objects.length(); i++) {
+                JSONObject object = objects.getJSONObject(i);
+                incrementValue(object, Arrays.asList("id", "product_id", "category_id", "customer_id", "command_id"));
+                apiHandler.sendPost("http://localhost:8080/api/v1/"+key+"/",object.toString(), headers);
+            }
+        }
+    }
+
+    //https://stackoverflow.com/a/46633583/986160
+    public static void incrementValue(JSONObject obj, List<String> keysToIncrementValue) {
+        Set<String> keys = obj.keySet();
+        for (String key : keys) {
+            Object ob = obj.get(key);
+
+            if (keysToIncrementValue.contains(key)) {
+                obj.put(key, (Integer)obj.get(key) + 1);
+            }
+
+            if (ob instanceof JSONObject) {
+                incrementValue((JSONObject) ob, keysToIncrementValue);
+            }
+            else if (ob instanceof JSONArray) {
+                JSONArray arr = (JSONArray) ob;
+                for (int i=0; i < arr.length(); i++) {
+                    Object arrObj = arr.get(0);
+                    if (arrObj instanceof JSONObject) {
+                        incrementValue((JSONObject) arrObj, keysToIncrementValue);
+                    }
                 }
             }
         }
     }
+
 }

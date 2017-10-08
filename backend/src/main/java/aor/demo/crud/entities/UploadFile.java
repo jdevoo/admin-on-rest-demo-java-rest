@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class UploadFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+    public Integer id;
     public String diskPath;
     public String path;
 

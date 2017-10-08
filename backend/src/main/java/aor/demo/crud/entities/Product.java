@@ -1,14 +1,15 @@
 package aor.demo.crud.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
-@TableGenerator(name="product", initialValue=0, allocationSize=50)
+@Where(clause="published=1")
 public class Product {
-    @Id @GeneratedValue(strategy=GenerationType.TABLE, generator="product")
-    public int id;
+    @Id
+    public Integer id;
     public String reference;
     public float width;
     public float height;
