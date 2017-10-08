@@ -5,6 +5,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Where(clause="published=1")
@@ -22,8 +23,10 @@ public class Customer {
     public String firstSeen;
     public String lastSeen;
     public boolean hasNewsLetter;
-    @ElementCollection(fetch = FetchType.EAGER)
-    Collection<GroupEnum> groups;
+
+    @ManyToMany(cascade = {CascadeType.DETACH})
+    public Set<Group> groups;
+
     public String latestPurchase;
     public int nbCommands;
     public double totalSpent;
