@@ -45,7 +45,7 @@ This backend implementation is the result of considerable effort to use admin-on
 
 ## Configuration
 
-You need a database called demo. The credentials are being configured in application.properties. Open the project using existing resources and select Maven from IntelliJ Idea menu.
+You need a database called demo. The credentials are being configured in application.properties. Open the project using existing resources and select Maven from IntelliJ Idea menu. Run AORDemoApplication.java that will start a Java Spring Boot Application on http://localhost:8080
 
 ### Features
 
@@ -60,11 +60,11 @@ You need a database called demo. The credentials are being configured in applica
 
 ### Future work
 
-https://marmelab.com/admin-on-rest/RestClients.html
 - Make the project runnable through Maven - currently it is a IntelliJ Idea Maven project
 - Be able to combine results from Text Search and Exact Match filtering
 - Indexes that might be missing currently
 - some fixes for embedded lists for some of resources
+- Swagger-UI needs to be excluded properly from authentication
 
 
 
