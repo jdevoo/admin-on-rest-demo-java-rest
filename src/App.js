@@ -20,24 +20,13 @@ import { ProductList, ProductCreate, ProductEdit, ProductIcon } from './products
 import { CategoryList, CategoryEdit, CategoryIcon } from './categories';
 import { ReviewList, ReviewEdit, ReviewIcon } from './reviews';
 import { fetchUtils } from 'admin-on-rest';
-import addUploadFeature from './addUploadFeature';
-import simpleRestClient from './SimpleRestClient';
+import restClient from './restClient';
 
 
-const httpClient = (url, options = {}) => {
-    options.headers.set('Content-Range', 10);
-    return fetchUtils.fetchJson(url, options);
-};
 
-const restClient = simpleRestClient('http://jsonplaceholder.typicode.com', httpClient);
-const uploadCapableClient = addUploadFeature(restClient);
-const delayedRestClient = (type, resource, params) => new Promise(resolve => setTimeout(() => resolve(uploadCapableClient(type, resource, params)), 1000));
 
 
 class App extends Component {
-    // componentWillMount() {
-    //     this.restoreFetch = fakeRestServer();
-    // }
 
     componentWillUnmount() {
         this.restoreFetch();
