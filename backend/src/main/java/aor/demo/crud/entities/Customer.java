@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Where(clause="published=1")
@@ -21,8 +22,9 @@ public class Customer {
     public String firstSeen;
     public String lastSeen;
     public boolean hasNewsLetter;
-    //TODO latest purchase
-    //TODO groups
+    @ElementCollection(fetch = FetchType.EAGER)
+    Collection<GroupEnum> groups;
+    public String latestPurchase;
     public int nbCommands;
     public double totalSpent;
     public boolean published = true;
