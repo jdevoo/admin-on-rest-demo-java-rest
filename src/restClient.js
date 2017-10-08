@@ -1,4 +1,14 @@
-// import { simpleRestClient } from 'admin-on-rest';
+import addUploadFeature from './addUploadFeature';
+import simpleRestClient from './SimpleRestClient';
+import { fetchUtils } from 'admin-on-rest';
 
-// const restClient = simpleRestClient('http://localhost:3000');
-// export default (type, resource, params) => new Promise(resolve => setTimeout(() => resolve(restClient(type, resource, params)), 500));
+const httpClient = (url, options = {}) => {
+    options.headers.set('Content-Range', 10);
+    return fetchUtils.fetchJson(url, options);
+};
+
+const restClient = simpleRestClient('http://jsonplaceholder.typicode.com', httpClient);
+
+
+const uploadCapableClient = addUploadFeature(restClient);
+export default (type, resource, params) => new Promise(resolve => setTimeout(() => resolve(uploadCapableClient(type, resource, params)), 1000));
