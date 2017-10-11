@@ -29,7 +29,7 @@ public class WrapperAdvice implements ResponseBodyAdvice {
     @SuppressWarnings("unchecked")
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (! ( (body instanceof List) ||
-                (body instanceof Set)
+                (body instanceof Set) ||
                 (body instanceof Page) ||
                 (body instanceof InputStreamResource) ||
                 (body instanceof LinkedHashMap && ((LinkedHashMap)(body)).containsKey("exception"))
