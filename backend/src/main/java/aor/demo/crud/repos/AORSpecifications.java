@@ -1,6 +1,5 @@
 package aor.demo.crud.repos;
 
-import com.google.common.base.CaseFormat;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +10,6 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AORSpecifications<T> {

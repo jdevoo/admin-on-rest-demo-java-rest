@@ -14,6 +14,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 
 @ControllerAdvice
@@ -28,6 +29,7 @@ public class WrapperAdvice implements ResponseBodyAdvice {
     @SuppressWarnings("unchecked")
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (! ( (body instanceof List) ||
+                (body instanceof Set)
                 (body instanceof Page) ||
                 (body instanceof InputStreamResource) ||
                 (body instanceof LinkedHashMap && ((LinkedHashMap)(body)).containsKey("exception"))
