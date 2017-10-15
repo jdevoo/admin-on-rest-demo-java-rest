@@ -100,7 +100,7 @@ public class FileUploadController {
                 UploadFile file = new UploadFile();
                 file.diskPath = pathToStore;
                 repo.save(file);
-                file.path = env.getProperty("aordemo.host")+"/api/v1/file/"+ file.id;
+                file.path = env.getProperty("react-admin-api")+"/api/v1/file/"+ file.id;
                 repo.save(file);
 
                 fileInfo.setId(file.id);

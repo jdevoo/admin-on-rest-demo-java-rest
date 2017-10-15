@@ -1,15 +1,17 @@
 package reactAdmin.utils;
 
 import com.google.common.base.CaseFormat;
-import reactAdmin.repositories.BaseRepository;
-import reactAdmin.specifications.ReactAdminSpecifications;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
+import reactAdmin.repositories.BaseRepository;
+import reactAdmin.specifications.ReactAdminSpecifications;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +21,11 @@ import java.util.Set;
 @Service
 public class ApiUtils {
 
+    @Autowired
+    private Environment env;
+
     public <T> Page<T> filterByHelper(BaseRepository<T> repo, ReactAdminSpecifications<T> specifications, String filterStr, String rangeStr, String sortStr) {
+        String usesSnakeCase = env.getProperty("react-admin-api.use-snake-case");
         JSONObject filter = null;
         if (filterStr != null) {
             filter = JSON.toJsonObject(filterStr);
@@ -42,7 +48,12 @@ public class ApiUtils {
         String sortBy = "id";
         String order = "DESC";
         if (range != null) {
-            sortBy = convertToCamelCase((String) sort.get(0));
+            if (usesSnakeCase != null && usesSnakeCase.equals("true")) {
+                sortBy = convertToCamelCase((String) sort.get(0));
+            }
+            else {
+                sortBy = (String) sort.get(0);
+            }
             order = (String) sort.get(1);
         }
 
@@ -64,7 +75,9 @@ public class ApiUtils {
         }
         else {
             HashMap<String,Object> map = (HashMap<String,Object>) filter.toMap();
-            map = convertToCamelCase(map);
+            if (usesSnakeCase != null && usesSnakeCase.equals("true")) {
+                map = convertToCamelCase(map);
+            }
             return repo.findAll(Specifications.where(specifications.equalToEachColumn(map)), new PageRequest(page,size, sortDir, sortBy));
         }
     }
