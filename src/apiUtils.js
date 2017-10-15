@@ -23,7 +23,7 @@ export default class APIUtils {
         for (let j=0; j<results.length; j++){
             let resId = 0;
             if (results[j].hasOwnProperty("id")) {
-                resId = results[j].id+"";
+                resId = results[j].id;
             }
             idsFetched.push(resId);
         }
