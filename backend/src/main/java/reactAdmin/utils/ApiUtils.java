@@ -64,19 +64,19 @@ public class ApiUtils {
         }
         else {
             HashMap<String,Object> map = (HashMap<String,Object>) filter.toMap();
-            convertToCamelCase(map);
+            map = convertToCamelCase(map);
             return repo.findAll(Specifications.where(specifications.equalToEachColumn(map)), new PageRequest(page,size, sortDir, sortBy));
         }
     }
 
-    private void convertToCamelCase(HashMap<String, Object> snakeCaseMap) {
+    private HashMap<String, Object> convertToCamelCase(HashMap<String, Object> snakeCaseMap) {
         Set<String> keys = snakeCaseMap.keySet();
+        HashMap<String, Object> camelCaseMap = new HashMap<>(snakeCaseMap);
         for (String key: keys) {
-
             Object val = snakeCaseMap.get(key);
-            snakeCaseMap.remove(key);
-            snakeCaseMap.put(convertToCamelCase(key), val);
+            camelCaseMap.put(convertToCamelCase(key), val);
         }
+        return camelCaseMap;
     }
 
     private String convertToCamelCase(String snakeCaseStr) {
