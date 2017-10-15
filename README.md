@@ -1,4 +1,4 @@
-# Admin-on-rest Demo + Java Spring Boot/MySQL REST Backend
+# React-Admin Demo + Java Spring Boot/MySQL REST Backend
 
 This is a demo of the [admin-on-rest](https://github.com/marmelab/admin-on-rest) library for React.js. It creates a working administration for a fake poster shop named Posters Galore. You can test it online at http://marmelab.com/admin-on-rest-demo.
 
@@ -45,7 +45,7 @@ This backend implementation is the result of considerable effort to use admin-on
 
 ## Configuration
 
-You need a database called demo. The credentials are being configured in application.properties. Open the project using existing resources and select Maven from IntelliJ Idea menu. Run AORDemoApplication.java that will start a Java Spring Boot Application on http://localhost:8080
+You need a database called demo. The credentials are being configured in application.properties. Open the project using existing resources and select Maven from IntelliJ Idea menu. Run ReactAdminDemoApplication.java that will start a Java Spring Boot Application on http://localhost:8080
 
 ### Features
 
@@ -53,11 +53,11 @@ You need a database called demo. The credentials are being configured in applica
 - Automatic filling of data from https://raw.githubusercontent.com/zifnab87/admin-on-rest-demo-java/master/backend/src/main/webapp/WEB-INF/uploaded/data.json
 - Rest API based on admin-on-rest conventions (e.g resource names and calling signatures: https://marmelab.com/admin-on-rest/RestClients.html)
 - Built-in User Authentication (followed this implementation: https://auth0.com/blog/securing-spring-boot-with-jwts/)
-- Paging and Sorting support using `PagingAndSortingRepository` provided by Java Spring-Data
+- Easily expandable by adding a new `@Entity` class, extending `BaseRepository<T>`, extending `BaseController<T>`
+- Paging and Sorting behind the scenes support using `PagingAndSortingRepository` provided by Java Spring-Data
 - Text Search among all text fields using q parameter 
 - Exact Match filtering among the rest of the fields of a resource
-- All query building is happening behind the scenes using Specifications and Criteria API 
-- Easily expandable by adding a new `@Entity` class, extending `GenericRepository<T>` and making a similar Controller to the existing ones 
+- All query building is happening behind the scenes using Specifications and Criteria API provided by Java Spring-Data
 
 ### Future work
 
