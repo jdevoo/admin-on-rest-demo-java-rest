@@ -1,4 +1,4 @@
-package reactAdmin.demo.crud.interceptors;
+package reactAdmin.controllerAdvices;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;

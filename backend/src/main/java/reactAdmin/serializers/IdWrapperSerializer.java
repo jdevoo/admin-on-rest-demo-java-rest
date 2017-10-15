@@ -1,4 +1,4 @@
-package reactAdmin.demo.crud.interceptors;
+package reactAdmin.serializers;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
