@@ -19,11 +19,15 @@ export default class APIUtils {
             return results;
         }
         let ids = params.ids;
+        for (let i = 0; i<ids.length; i++) {
+            ids[i] = ids[i] + "";
+        }
+
         let idsFetched = [];
         for (let j=0; j<results.length; j++){
             let resId = 0;
             if (results[j].hasOwnProperty("id")) {
-                resId = results[j].id;
+                resId = results[j].id + "";
             }
             idsFetched.push(resId);
         }
@@ -35,8 +39,6 @@ export default class APIUtils {
 
         }
         return results;
-
-
     }
 
     static snakeToCamelCase(snakeString) {
