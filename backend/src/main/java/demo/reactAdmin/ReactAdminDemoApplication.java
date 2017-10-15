@@ -1,8 +1,6 @@
-package reactAdmin;
+package demo.reactAdmin;
 
-import reactAdmin.demo.crud.services.DataInitService;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
+import demo.reactAdmin.crud.services.DataInitService;
 import com.fasterxml.jackson.databind.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -27,9 +25,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.ServletContext;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"demo.reactAdmin", "reactAdmin"})
 @EnableSwagger2
-@EntityScan(basePackages = "reactAdmin")
+
 public class ReactAdminDemoApplication extends WebMvcAutoConfiguration {
 
 
