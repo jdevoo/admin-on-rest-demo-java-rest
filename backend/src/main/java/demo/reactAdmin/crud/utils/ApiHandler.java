@@ -6,7 +6,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Service;
-import reactAdmin.utils.JSON;
+import reactAdmin.rest.utils.JSON;
 
 import java.io.*;
 import java.net.HttpURLConnection;

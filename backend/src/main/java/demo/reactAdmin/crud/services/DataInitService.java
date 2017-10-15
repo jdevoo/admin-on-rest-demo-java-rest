@@ -9,7 +9,7 @@ import demo.reactAdmin.crud.repos.ExampleRepository;
 import demo.reactAdmin.crud.repos.GroupRepository;
 import demo.reactAdmin.crud.repos.UserRepository;
 import demo.reactAdmin.crud.utils.ApiHandler;
-import reactAdmin.utils.JSON;
+import reactAdmin.rest.utils.JSON;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

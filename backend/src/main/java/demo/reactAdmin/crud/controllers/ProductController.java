@@ -3,7 +3,7 @@ package demo.reactAdmin.crud.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import reactAdmin.controllers.BaseController;
+import reactAdmin.rest.controllers.BaseController;
 import demo.reactAdmin.crud.entities.Product;
 import demo.reactAdmin.crud.repos.ProductRepository;
 
