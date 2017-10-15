@@ -1,5 +1,6 @@
 package reactAdmin.utils;
 
+import com.google.common.base.CaseFormat;
 import reactAdmin.repositories.BaseRepository;
 import reactAdmin.specifications.ReactAdminSpecifications;
 import org.json.JSONArray;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ApiUtils {
@@ -40,7 +42,7 @@ public class ApiUtils {
         String sortBy = "id";
         String order = "DESC";
         if (range != null) {
-            sortBy = (String) sort.get(0);
+            sortBy = convertToCamelCase((String) sort.get(0));
             order = (String) sort.get(1);
         }
 
@@ -62,8 +64,23 @@ public class ApiUtils {
         }
         else {
             HashMap<String,Object> map = (HashMap<String,Object>) filter.toMap();
+            convertToCamelCase(map);
             return repo.findAll(Specifications.where(specifications.equalToEachColumn(map)), new PageRequest(page,size, sortDir, sortBy));
         }
+    }
+
+    private void convertToCamelCase(HashMap<String, Object> snakeCaseMap) {
+        Set<String> keys = snakeCaseMap.keySet();
+        for (String key: keys) {
+
+            Object val = snakeCaseMap.get(key);
+            snakeCaseMap.remove(key);
+            snakeCaseMap.put(convertToCamelCase(key), val);
+        }
+    }
+
+    private String convertToCamelCase(String snakeCaseStr) {
+        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, snakeCaseStr);
     }
 
     public List<Integer> makeListsInteger(List list) {
