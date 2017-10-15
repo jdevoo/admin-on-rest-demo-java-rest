@@ -1,4 +1,4 @@
-package reactAdmin.demo.crud.repos;
+package reactAdmin.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class AORSpecifications<T> {
+public class ReactAdminSpecifications<T> {
 
     public Specification<T> seachInAllAttributes(String text) {
 
@@ -42,6 +42,7 @@ public class AORSpecifications<T> {
         allowdRefTypes.add("set");
         return allowdRefTypes.contains(className.toLowerCase());
     }
+
     public Specification<T> equalToEachColumn(HashMap<String,Object> map) {
 
         return new Specification<T>() {
@@ -49,6 +50,7 @@ public class AORSpecifications<T> {
             public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 
                 final List<Predicate> predicates = new ArrayList<>();
+
                 root.getModel().getAttributes().stream().forEach(a ->
                     {
                         Predicate pred = null;
@@ -68,10 +70,10 @@ public class AORSpecifications<T> {
                                 attributeJavaClass.equals("double")) {
                                 pred = builder.equal(root.get(a.getName()), val);
                             }
-                            else if (AORSpecifications.isManyToMany(attributeJavaClass)) {
+                            else if (ReactAdminSpecifications.isManyToMany(attributeJavaClass)) {
                                 pred = builder.isTrue(root.join(a.getName()).get("id").in(val));
                             }
-                            else { /*&& AORSpecifications.isReferenced(a.getJavaType().getSimpleName())) {*/
+                            else { /*&& ReactAdminSpecifications.isReferenced(a.getJavaType().getSimpleName())) {*/
                                 pred = builder.equal(root.get(a.getName()).get("id"), val);
                             }
                         }

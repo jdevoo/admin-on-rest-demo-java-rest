@@ -1,26 +1,18 @@
 package reactAdmin.demo.crud.controllers;
 
-import reactAdmin.demo.crud.entities.PlatformUser;
-import reactAdmin.demo.crud.repos.AORSpecifications;
-import reactAdmin.demo.crud.repos.UserRepository;
-import reactAdmin.demo.crud.utils.ApiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+import reactAdmin.controllers.BaseController;
+import reactAdmin.demo.crud.entities.PlatformUser;
+import reactAdmin.demo.crud.repos.UserRepository;
 
 @RestController
 @RequestMapping("api/v1")
-public class UserController {
+public class UserController extends BaseController<PlatformUser> {
     @Autowired
     private UserRepository repo;
-
-
-    @Autowired
-    private AORSpecifications<PlatformUser> specification;
-
-    @Autowired
-    private ApiUtils utils;
 
     @RequestMapping(value = "current-user", method = RequestMethod.GET)
     public PlatformUser getCurrentUser() {
@@ -46,6 +38,6 @@ public class UserController {
     public Iterable<PlatformUser> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
             @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
-        return utils.filterByHelper(repo, specification, filterStr, rangeStr, sortStr);
+        return super.filterBy(filterStr,rangeStr, sortStr, repo);
     }
 }

@@ -1,24 +1,17 @@
 package reactAdmin.demo.crud.controllers;
 
 
-import reactAdmin.demo.crud.entities.Customer;
-import reactAdmin.demo.crud.repos.AORSpecifications;
-import reactAdmin.demo.crud.repos.CustomerRepository;
-import reactAdmin.demo.crud.utils.ApiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactAdmin.controllers.BaseController;
+import reactAdmin.demo.crud.entities.Customer;
+import reactAdmin.demo.crud.repos.CustomerRepository;
 
 @RestController
 @RequestMapping("api/v1")
-public class CustomerController {
+public class CustomerController extends BaseController<Customer> {
     @Autowired
     private CustomerRepository repo;
-
-    @Autowired
-    private AORSpecifications<Customer> specification;
-
-    @Autowired
-    private ApiUtils utils;
 
     @RequestMapping(value = "customers", method = RequestMethod.POST)
     public Customer create(@RequestBody Customer customer) {
@@ -48,6 +41,6 @@ public class CustomerController {
     public Iterable<Customer> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
             @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
-        return utils.filterByHelper(repo, specification, filterStr, rangeStr, sortStr);
+        return super.filterBy(filterStr,rangeStr, sortStr, repo);
     }
 }

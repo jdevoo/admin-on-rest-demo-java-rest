@@ -1,29 +1,22 @@
 package reactAdmin.demo.crud.controllers;
 
 
-import reactAdmin.demo.crud.entities.Command;
-import reactAdmin.demo.crud.entities.QuantifiedProduct;
-import reactAdmin.demo.crud.repos.AORSpecifications;
-import reactAdmin.demo.crud.repos.CommandRepository;
-import reactAdmin.demo.crud.repos.ProductRepository;
-import reactAdmin.demo.crud.utils.ApiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactAdmin.controllers.BaseController;
+import reactAdmin.demo.crud.entities.Command;
+import reactAdmin.demo.crud.entities.QuantifiedProduct;
+import reactAdmin.demo.crud.repos.CommandRepository;
+import reactAdmin.demo.crud.repos.ProductRepository;
 
 @RestController
 @RequestMapping("api/v1")
-public class CommandController {
+public class CommandController extends BaseController<Command> {
     @Autowired
     private CommandRepository repo;
 
     @Autowired
     private ProductRepository productRepo;
-
-    @Autowired
-    private AORSpecifications<Command> specification;
-
-    @Autowired
-    private ApiUtils utils;
 
     @RequestMapping(value = "commands", method = RequestMethod.POST)
     public Command create(@RequestBody Command command) {
@@ -58,6 +51,6 @@ public class CommandController {
     public Iterable<Command> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
             @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
-        return utils.filterByHelper(repo, specification, filterStr, rangeStr, sortStr);
+        return super.filterBy(filterStr,rangeStr, sortStr, repo);
     }
 }

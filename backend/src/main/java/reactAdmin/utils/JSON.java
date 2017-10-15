@@ -1,4 +1,4 @@
-package reactAdmin.demo.crud.utils;
+package reactAdmin.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

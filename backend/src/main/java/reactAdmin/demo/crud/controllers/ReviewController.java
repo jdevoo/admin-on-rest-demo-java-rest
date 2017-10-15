@@ -1,24 +1,16 @@
 package reactAdmin.demo.crud.controllers;
 
-
-import reactAdmin.demo.crud.entities.Review;
-import reactAdmin.demo.crud.repos.AORSpecifications;
-import reactAdmin.demo.crud.repos.ReviewRepository;
-import reactAdmin.demo.crud.utils.ApiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactAdmin.controllers.BaseController;
+import reactAdmin.demo.crud.entities.Review;
+import reactAdmin.demo.crud.repos.ReviewRepository;
 
 @RestController
 @RequestMapping("api/v1")
-public class ReviewController {
+public class ReviewController extends BaseController<Review> {
     @Autowired
     private ReviewRepository repo;
-
-    @Autowired
-    private AORSpecifications<Review> specification;
-
-    @Autowired
-    private ApiUtils utils;
 
     @RequestMapping(value = "reviews", method = RequestMethod.POST)
     public Review create(@RequestBody Review review) {
@@ -38,7 +30,6 @@ public class ReviewController {
         return repo.save(review);
     }
 
-
     @RequestMapping(value = "reviews/{id}", method = RequestMethod.GET)
     public Review getById(@PathVariable int id) {
         return repo.findOne(id);
@@ -48,6 +39,6 @@ public class ReviewController {
     public Iterable<Review> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
             @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
-        return utils.filterByHelper(repo, specification, filterStr, rangeStr, sortStr);
+        return super.filterBy(filterStr,rangeStr, sortStr, repo);
     }
 }

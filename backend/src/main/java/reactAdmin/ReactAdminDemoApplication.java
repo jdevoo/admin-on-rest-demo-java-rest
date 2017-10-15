@@ -1,4 +1,4 @@
-package reactAdmin.demo;
+package reactAdmin;
 
 import reactAdmin.demo.crud.services.DataInitService;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -28,8 +28,8 @@ import javax.servlet.ServletContext;
 
 @SpringBootApplication
 @EnableSwagger2
-@EntityScan(basePackages = "reactAdmin.demo")
-public class AORDemoApplication extends WebMvcAutoConfiguration{
+@EntityScan(basePackages = "reactAdmin")
+public class ReactAdminDemoApplication extends WebMvcAutoConfiguration {
 
 
     @Autowired
@@ -58,7 +58,7 @@ public class AORDemoApplication extends WebMvcAutoConfiguration{
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(AORDemoApplication.class, args);
+        SpringApplication.run(ReactAdminDemoApplication.class, args);
     }
 
     @EventListener(ApplicationReadyEvent.class)
