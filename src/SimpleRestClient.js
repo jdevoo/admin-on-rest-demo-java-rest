@@ -58,11 +58,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 return entity.getManyRequest(params);
 
             case GET_MANY_REFERENCE:
-                if ("reviews" === resource) {
-                    params.filter.product_id = params.target_id;
-                    return product.getListWithFilterRequest(params);
-                }
-
+                params.filter = {};
+                params.filter[params.target] = params.id;
+                return entity.getListWithFilterRequest(params);
             case UPDATE:
                 return entity.editRequest(params.id, params.data);
 
