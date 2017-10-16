@@ -53,18 +53,22 @@ You need a database called demo. The credentials are being configured in applica
 - Automatic filling of data from https://raw.githubusercontent.com/zifnab87/react-admin-demo-java-rest/master/backend/src/main/webapp/WEB-INF/uploaded/data.json
 - Rest API based on admin-on-rest conventions (e.g resource names and calling signatures: https://marmelab.com/admin-on-rest/RestClients.html)
 - Built-in User Authentication (followed this implementation: https://auth0.com/blog/securing-spring-boot-with-jwts/)
-- Easily expandable by adding a new `@Entity` class, extending `BaseRepository<T>`, extending `BaseController<T>`
+- Easily expandable by adding a new `@Entity` class, extending `BaseRepository<T>`, extending `BaseController<T>` both provided by https://github.com/zifnab87/react-admin-java-rest
 - Paging and Sorting behind the scenes support using `PagingAndSortingRepository` provided by Java Spring-Data
 - Text Search among all text fields using q parameter 
 - Exact Match filtering among the rest of the fields of a resource
 - All query building is happening behind the scenes using Specifications and Criteria API provided by Java Spring-Data
+- Ability to support snake_case or camelCase variables by setting (`react-admin-api.use-snake-case = true` (default = false)) in application.properties
+- Automatic wrapping of responses in "content" using `@ControllerAdvice` provided by https://github.com/zifnab87/react-admin-java-rest/blob/master/src/main/java/reactAdmin/rest/controllerAdvices/WrapperAdvice.java
+- Automatic calculation total number of results returned and addition of that number in `X-Total-Count` response header provided as `@ControllerAdvice` by https://github.com/zifnab87/react-admin-java-rest/blob/master/src/main/java/reactAdmin/rest/controllerAdvices/ResourceSizeAdvice.java
+- Automatic deserialization of entities by their ids only during POST/PUT, using `@JsonCreator` annotations over constructors of Entities - see here for explanation: https://stackoverflow.com/questions/46603075/single-custom-deserializer-for-all-objects-as-their-ids-or-embedded-whole-object
+
 
 ### Future work
 
 - Make the project runnable through Maven - currently it is a IntelliJ Idea Maven project
 - Be able to combine results from Text Search and Exact Match filtering
 - Indexes that might be missing currently
-- some fixes for embedded lists for some of resources
 - Swagger-UI needs to be excluded properly from authentication
 
 
