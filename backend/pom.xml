@@ -139,7 +139,7 @@
         <dependency>
             <groupId>com.github.zifnab87</groupId>
             <artifactId>react-admin-java-rest</artifactId>
-            <version>7c298c3</version>
+            <version>128bce3</version>
         </dependency>
     </dependencies>
 
