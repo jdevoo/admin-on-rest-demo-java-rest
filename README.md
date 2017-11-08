@@ -67,7 +67,7 @@ You need a database called demo. The credentials are being configured in applica
 ### Future work
 
 - Make the project runnable through Maven - currently it is a IntelliJ Idea Maven project
-- Be able to combine results from Text Search and Exact Match filtering
+- ~~Be able to combine results from Text Search and Exact Match filtering~~ **DONE**
 - Indexes that might be missing currently
 - Swagger-UI needs to be excluded properly from authentication
 
