@@ -1,17 +1,22 @@
 package demo.reactAdmin.crud.controllers;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import reactAdmin.rest.controllers.BaseController;
 import demo.reactAdmin.crud.entities.Command;
 import demo.reactAdmin.crud.entities.QuantifiedProduct;
 import demo.reactAdmin.crud.repos.CommandRepository;
 import demo.reactAdmin.crud.repos.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import reactAdmin.rest.entities.FilterWrapper;
+import reactAdmin.rest.services.FilterService;
 
 @RestController
 @RequestMapping("api/v1")
-public class CommandController extends BaseController<Command> {
+public class CommandController {
+
+    @Autowired
+    private FilterService<Command> filterService;
+
     @Autowired
     private CommandRepository repo;
 
@@ -51,6 +56,7 @@ public class CommandController extends BaseController<Command> {
     public Iterable<Command> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
             @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
-        return super.filterBy(filterStr,rangeStr, sortStr, repo);
+        FilterWrapper wrapper = filterService.extractFilterWrapper(filterStr, rangeStr, sortStr);
+        return filterService.filterBy(wrapper, repo);
     }
 }

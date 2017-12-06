@@ -1,16 +1,21 @@
 package demo.reactAdmin.crud.controllers;
 
+import demo.reactAdmin.crud.entities.PlatformUser;
+import demo.reactAdmin.crud.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import reactAdmin.rest.controllers.BaseController;
-import demo.reactAdmin.crud.entities.PlatformUser;
-import demo.reactAdmin.crud.repos.UserRepository;
+import reactAdmin.rest.entities.FilterWrapper;
+import reactAdmin.rest.services.FilterService;
 
 @RestController
 @RequestMapping("api/v1")
-public class UserController extends BaseController<PlatformUser> {
+public class UserController {
+
+    @Autowired
+    private FilterService<PlatformUser> filterService;
+
     @Autowired
     private UserRepository repo;
 
@@ -38,6 +43,7 @@ public class UserController extends BaseController<PlatformUser> {
     public Iterable<PlatformUser> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
             @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
-        return super.filterBy(filterStr,rangeStr, sortStr, repo);
+        FilterWrapper wrapper = filterService.extractFilterWrapper(filterStr, rangeStr, sortStr);
+        return filterService.filterBy(wrapper, repo);
     }
 }

@@ -1,14 +1,19 @@
 package demo.reactAdmin.crud.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import reactAdmin.rest.controllers.BaseController;
 import demo.reactAdmin.crud.entities.Review;
 import demo.reactAdmin.crud.repos.ReviewRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import reactAdmin.rest.entities.FilterWrapper;
+import reactAdmin.rest.services.FilterService;
 
 @RestController
 @RequestMapping("api/v1")
-public class ReviewController extends BaseController<Review> {
+public class ReviewController {
+
+    @Autowired
+    private FilterService<Review> filterService;
+
     @Autowired
     private ReviewRepository repo;
 
@@ -39,6 +44,7 @@ public class ReviewController extends BaseController<Review> {
     public Iterable<Review> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
             @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
-        return super.filterBy(filterStr,rangeStr, sortStr, repo);
+        FilterWrapper wrapper = filterService.extractFilterWrapper(filterStr, rangeStr, sortStr);
+        return filterService.filterBy(wrapper, repo);
     }
 }
