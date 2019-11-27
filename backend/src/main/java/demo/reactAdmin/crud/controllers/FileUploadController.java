@@ -3,7 +3,6 @@ package demo.reactAdmin.crud.controllers;
 import demo.reactAdmin.crud.entities.UploadFile;
 import demo.reactAdmin.crud.repos.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,14 +19,12 @@ import java.io.IOException;
 @RestController
 @RequestMapping("api/v1")
 public class FileUploadController {
+
     @Autowired
     ServletContext context;
 
     @Autowired
     private FileRepository repo;
-
-    @Autowired
-    private Environment env;
 
     private class FileInfo {
 
@@ -71,10 +68,9 @@ public class FileUploadController {
     }
 
     @RequestMapping(value = "file/{id}", method = RequestMethod.GET)
-    public ResponseEntity<InputStreamResource> getFile(@PathVariable int id )
+    public ResponseEntity<InputStreamResource> getFile(@PathVariable int id)
             throws IOException {
-        File file = new File( context.getRealPath(repo.findOne(id).diskPath));
-
+        File file = new File(context.getRealPath(repo.findById(id).get().toString()));
 
         return ResponseEntity
                 .ok()
@@ -100,7 +96,7 @@ public class FileUploadController {
                 UploadFile file = new UploadFile();
                 file.diskPath = pathToStore;
                 repo.save(file);
-                file.path = env.getProperty("react-admin-api")+"/api/v1/file/"+ file.id;
+                file.path = "http://localhost:8080/api/v1/file/"+ file.id;
                 repo.save(file);
 
                 fileInfo.setId(file.id);
@@ -115,4 +111,5 @@ public class FileUploadController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
 }

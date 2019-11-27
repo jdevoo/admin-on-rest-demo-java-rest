@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Entity(name = "QuantifiedProduct")
 public class QuantifiedProduct {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;

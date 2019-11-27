@@ -110,6 +110,7 @@ class Login extends Component {
             </MuiThemeProvider>
         );
     }
+
 }
 
 Login.propTypes = {

@@ -1,8 +1,7 @@
 package demo.reactAdmin.crud.repos;
 
 import demo.reactAdmin.crud.entities.Category;
-import reactAdmin.rest.repositories.BaseRepository;
+import springboot.rest.repositories.BaseRepository;
 
-
-public interface CategoryRepository extends BaseRepository<Category> {
+public interface CategoryRepository extends BaseRepository<Category, Integer> {
 }

@@ -31,13 +31,10 @@ public class Command {
     @OneToMany(cascade = {CascadeType.ALL})
     public Set<QuantifiedProduct> basket = new HashSet<>();
 
-
     public Command() {}
 
     @JsonCreator
     public Command(int id) {
         this.id = id;
     }
-
-
 }

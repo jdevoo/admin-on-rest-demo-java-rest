@@ -2,6 +2,7 @@ import { config } from './config';
 import APIUtils from  './apiUtils';
 import { fetchUtils } from 'admin-on-rest';
 
+/*
 const convertFileToBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file.rawFile);
@@ -9,7 +10,7 @@ const convertFileToBase64 = file => new Promise((resolve, reject) => {
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
 });
-
+*/
 
 const detectPicturesAndUpload = function(properties, params, requestHandler, type, resource) {
     let promises = [];
@@ -33,7 +34,7 @@ const detectPicturesAndUpload = function(properties, params, requestHandler, typ
                 if (!Array.isArray(params.data[prop])) {
                     params.data[prop] = [];
                 }
-                params.data[prop].push(parseInt(uploadedPic.id));
+                params.data[prop].push(parseInt(uploadedPic.id, 10));
             }
         }
     }
@@ -43,12 +44,11 @@ const detectPicturesAndUpload = function(properties, params, requestHandler, typ
             if (!Array.isArray(params.data[propName])) {
                 params.data[propName] = [];
             }
-            params.data[propName].push(parseInt(res.json.content[0].id));
+            params.data[propName].push(parseInt(res.json.content[0].id, 10));
         }
         return requestHandler(type, resource, params);
     });
 }
-
 
 const addUploadCapabilities = requestHandler => (type, resource, params) => {
     if ( (type === 'CREATE' || type === "UPDATE")) {

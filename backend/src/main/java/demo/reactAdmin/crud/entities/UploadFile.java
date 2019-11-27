@@ -16,7 +16,6 @@ public class UploadFile {
     public String path;
 
     public UploadFile() {
-
     }
 
     @JsonCreator

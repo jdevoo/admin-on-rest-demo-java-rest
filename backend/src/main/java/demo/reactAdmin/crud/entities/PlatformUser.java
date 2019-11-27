@@ -12,10 +12,11 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Where(clause="published=1")
-@Table( uniqueConstraints =  {
+@Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"username"}),
 })
 public class PlatformUser implements Principal {
@@ -67,7 +68,5 @@ public class PlatformUser implements Principal {
 
     public UserRole getUserRole() {
         return new UserRole(id, Role.ADMINISTRATOR);
-
     }
-
 }

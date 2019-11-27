@@ -51,7 +51,6 @@ export default class DefaultEntity {
         if(response.content.length === 0) {
             return {};
         }
-
         return APIUtils.prepareGetOneResponse(response.content[0],
             this.embeddedKeys);
     }
@@ -68,14 +67,14 @@ export default class DefaultEntity {
     }
 
     getListWithFilterRequest(params) {
-        let filters = APIUtils.prepAuthorizeFilter(params.filter);
         let urLQuery = APIUtils.createUrlQuery(params);
         let url = this.apiEndpoint +"?"+ urLQuery;
-        let options = APIUtils.createOptionsForGET();
+      let options = APIUtils.createOptionsForGET();
         return {url, options};
     }
 
     getManyRequest(params) {
         return this.getListWithFilterRequest(params);
     }
+
 }

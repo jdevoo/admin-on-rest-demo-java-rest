@@ -6,15 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import reactAdmin.rest.entities.FilterWrapper;
-import reactAdmin.rest.services.FilterService;
+import springboot.rest.services.FilterService;
+import springboot.rest.entities.QueryParamWrapper;
+import springboot.rest.utils.QueryParamExtractor;
 
 @RestController
 @RequestMapping("api/v1")
 public class UserController {
 
     @Autowired
-    private FilterService<PlatformUser> filterService;
+    private FilterService<PlatformUser, Integer> filterService;
 
     @Autowired
     private UserRepository repo;
@@ -28,13 +29,12 @@ public class UserController {
 
     @RequestMapping(value = "users/{id}", method = RequestMethod.GET)
     public PlatformUser getById(@PathVariable int id) {
-        return repo.findOne(id);
+        return repo.findById(id).get();
     }
-
 
     @RequestMapping(value = "users/{id}/published/{value}", method = RequestMethod.POST)
     public void publishedUpdate(@PathVariable int id, @PathVariable boolean value) {
-        PlatformUser user = repo.findOne(id);
+        PlatformUser user = repo.findById(id).get();
         user.published = value;
         repo.save(user);
     }
@@ -42,8 +42,10 @@ public class UserController {
     @RequestMapping(value = "users", method = RequestMethod.GET)
     public Iterable<PlatformUser> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
-            @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
-        FilterWrapper wrapper = filterService.extractFilterWrapper(filterStr, rangeStr, sortStr);
+            @RequestParam(required = false, name = "range") String rangeStr,
+            @RequestParam(required = false, name = "sort") String sortStr) {
+        QueryParamWrapper wrapper = QueryParamExtractor.extract(filterStr, rangeStr, sortStr);
         return filterService.filterBy(wrapper, repo);
     }
+
 }

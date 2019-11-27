@@ -1,7 +1,7 @@
 package demo.reactAdmin.crud.repos;
 
 import demo.reactAdmin.crud.entities.Customer;
-import reactAdmin.rest.repositories.BaseRepository;
+import springboot.rest.repositories.BaseRepository;
 
-public interface CustomerRepository extends BaseRepository<Customer> {
+public interface CustomerRepository extends BaseRepository<Customer, Integer> {
 }

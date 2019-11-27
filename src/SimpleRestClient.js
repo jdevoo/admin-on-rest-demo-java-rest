@@ -9,13 +9,9 @@ import {
     fetchUtils
 } from 'admin-on-rest';
 
-
 import {customer, segment, command, product, category, review} from './entities';
-import APIUtils from  './apiUtils';
-
 
 const prepareGetListRequest = function(entity, params) {
-
     let req = (Object.keys(params.filter).length > 0) ?
         entity.getListWithFilterRequest(params) : entity.getListRequest(params);
     return {url: req.url, options: req.options}
@@ -32,7 +28,6 @@ const factory = function(resource) {
         default: return null;
     }
 }
-
 
 export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
     /**

@@ -1,4 +1,3 @@
-import format from 'string-format';
 import { stringify } from 'query-string';
 export default class APIUtils {
 
@@ -51,7 +50,6 @@ export default class APIUtils {
 
     /***** Response utils *****/
     static prepareGetListResponse(rows, embeddedKeys) {
-
         return rows.map(function (row) {
             return APIUtils.oneRowResponseHelper(row, embeddedKeys, true);
         });
@@ -107,9 +105,7 @@ export default class APIUtils {
     }
 
 
-
     /***** Url utils *****/
-
     static createUrlQuery(params) {
         if (!params) {
             return "";
@@ -145,7 +141,6 @@ export default class APIUtils {
         return `${stringify(query)}`;
     }
 
-
     /***** options utils *****/
     static createOptionsForImageUpload(post_data) {
         let options = {};
@@ -160,8 +155,6 @@ export default class APIUtils {
         options.credentials = "include";
         return options;
     }
-
-
 
     static createOptionsForGET() {
         let options = {};
@@ -209,7 +202,7 @@ export default class APIUtils {
         if (!filters) {
             return {};
         }
-        let userId = parseInt(localStorage.getItem('user_id'));
+        let userId = parseInt(localStorage.getItem('user_id'), 10);
         if (APIUtils.isStaff()) {
             filters.staffId = [userId];
             filters.staff = [userId];

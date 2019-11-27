@@ -18,7 +18,6 @@ public class Example {
 
     public boolean published = true;
 
-
     @OneToMany(cascade = {CascadeType.DETACH})
     public Set<UploadFile> fileA = new HashSet<>();
 
@@ -36,6 +35,4 @@ public class Example {
     public Example() {
         this.id = id;
     }
-
-
 }

@@ -5,7 +5,6 @@ import APIUtils from './apiUtils';
 
 class UserHandler {
 
-
     static throwOnError = (response) => {
         if (!response.ok) {
             return response.json().then((res) => {
@@ -20,7 +19,6 @@ class UserHandler {
         localStorage.removeItem('username');
         localStorage.removeItem('user_role');
         localStorage.removeItem('user_id');
-
     }
 
     static isLoggedIn() {
@@ -38,7 +36,7 @@ class UserHandler {
     }
 
     static getUserDetails() {
-        const request = new Request( config.profileEndpoint, APIUtils.createOptionsForGET());
+        const request = new Request(config.profileEndpoint, APIUtils.createOptionsForGET());
 
         return fetch(request).then(UserHandler.throwOnError).then((resp) => {
             return resp.json().then((result) => {
@@ -63,6 +61,7 @@ class UserHandler {
             })
         });
     }
+
 }
 
 export default (type, params) => {
@@ -76,14 +75,12 @@ export default (type, params) => {
             let json = JSON.parse(response.body);
             localStorage.setItem('csrf_token', json.token);
             let userDetailsPromise = UserHandler.getUserDetails();
-
             return Promise.all([userDetailsPromise]).then(values => {
                 let userRole = values[0].userRole;
                 let userId = values[0].userId;
                 localStorage.setItem('user_role', userRole);
                 localStorage.setItem('user_id', userId);
             });
-
         });
     }
     // called when the user clicks on the logout button
@@ -108,7 +105,6 @@ export default (type, params) => {
         const { resource } = params;
         // TODO: possibly can be used with roles per resource
         if (resource === 'dashboard') {
-
         }
         return UserHandler.isLoggedIn() ? Promise.resolve() : Promise.reject();
     }

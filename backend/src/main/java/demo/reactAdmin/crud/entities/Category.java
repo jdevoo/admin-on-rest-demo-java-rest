@@ -13,7 +13,6 @@ public class Category {
     public String name;
     public boolean published = true;
 
-
     public Category() {}
 
     @JsonCreator

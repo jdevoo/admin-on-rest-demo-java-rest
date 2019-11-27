@@ -17,11 +17,12 @@ public class Client extends PlatformUser {
 
     public Client() {
         super();
-
     }
+
     public Client(String username, List<GrantedAuthority> roles) {
         super(username, roles);
     }
+
     @Override
     public UserRole getUserRole() {
         return new UserRole(id, Role.CLIENT);

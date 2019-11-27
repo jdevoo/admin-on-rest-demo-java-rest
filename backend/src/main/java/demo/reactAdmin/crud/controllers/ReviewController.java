@@ -4,15 +4,16 @@ import demo.reactAdmin.crud.entities.Review;
 import demo.reactAdmin.crud.repos.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import reactAdmin.rest.entities.FilterWrapper;
-import reactAdmin.rest.services.FilterService;
+import springboot.rest.services.FilterService;
+import springboot.rest.entities.QueryParamWrapper;
+import springboot.rest.utils.QueryParamExtractor;
 
 @RestController
 @RequestMapping("api/v1")
 public class ReviewController {
 
     @Autowired
-    private FilterService<Review> filterService;
+    private FilterService<Review, Integer> filterService;
 
     @Autowired
     private ReviewRepository repo;
@@ -30,21 +31,23 @@ public class ReviewController {
 
     @RequestMapping(value = "reviews/{id}/published/{value}", method = RequestMethod.POST)
     public Review publishedUpdate(@PathVariable int id, @PathVariable boolean value) {
-        Review review = repo.findOne(id);
+        Review review = repo.findById(id).get();
         review.published = value;
         return repo.save(review);
     }
 
     @RequestMapping(value = "reviews/{id}", method = RequestMethod.GET)
     public Review getById(@PathVariable int id) {
-        return repo.findOne(id);
+        return repo.findById(id).get();
     }
 
     @RequestMapping(value = "reviews", method = RequestMethod.GET)
     public Iterable<Review> filterBy(
             @RequestParam(required = false, name = "filter") String filterStr,
-            @RequestParam(required = false, name = "range") String rangeStr, @RequestParam(required = false, name="sort") String sortStr) {
-        FilterWrapper wrapper = filterService.extractFilterWrapper(filterStr, rangeStr, sortStr);
+            @RequestParam(required = false, name = "range") String rangeStr,
+            @RequestParam(required = false, name = "sort") String sortStr) {
+        QueryParamWrapper wrapper = QueryParamExtractor.extract(filterStr, rangeStr, sortStr);
         return filterService.filterBy(wrapper, repo);
     }
+
 }

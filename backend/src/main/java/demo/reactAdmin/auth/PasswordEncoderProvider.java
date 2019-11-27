@@ -10,4 +10,5 @@ public class PasswordEncoderProvider implements IPasswordEncoderProvider {
     public PasswordEncoder getEncoder() {
         return new BCryptPasswordEncoder(11);
     }
+
 }

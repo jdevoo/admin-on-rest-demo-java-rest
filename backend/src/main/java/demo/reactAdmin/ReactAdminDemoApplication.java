@@ -1,20 +1,17 @@
 package demo.reactAdmin;
 
 import demo.reactAdmin.crud.services.DataInitService;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import reactAdmin.rest.providers.ObjectMapperProvider;
+import springboot.rest.providers.ObjectMapperProvider;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -24,11 +21,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.ServletContext;
 
-@SpringBootApplication(scanBasePackages = {"demo.reactAdmin", "reactAdmin"})
+@SpringBootApplication(scanBasePackages = {"demo.reactAdmin", "springboot.rest"})
 @EnableSwagger2
-
 public class ReactAdminDemoApplication extends WebMvcAutoConfiguration {
-
 
     @Autowired
     private DataInitService dataInitService;
@@ -38,25 +33,6 @@ public class ReactAdminDemoApplication extends WebMvcAutoConfiguration {
 
     @Autowired
     private ObjectMapperProvider objMapperProvider;
-
-
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedHeader("*");
-        config.addExposedHeader("X-Total-Count");
-        config.addExposedHeader("Content-Range");
-        config.addExposedHeader("Content-Type");
-        config.addExposedHeader("Accept");
-        config.addExposedHeader("X-Requested-With");
-        config.addExposedHeader("remember-me");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(ReactAdminDemoApplication.class, args);
@@ -70,9 +46,7 @@ public class ReactAdminDemoApplication extends WebMvcAutoConfiguration {
     @Bean
     public ViewResolver internalResourceViewResolver() {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
-        //bean.setViewClass(JstlView.class);
         bean.setPrefix("/uploaded/");
-        //bean.setSuffix(".jsp");
         return bean;
     }
 
@@ -93,7 +67,6 @@ public class ReactAdminDemoApplication extends WebMvcAutoConfiguration {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-
                 .build();
     }
 

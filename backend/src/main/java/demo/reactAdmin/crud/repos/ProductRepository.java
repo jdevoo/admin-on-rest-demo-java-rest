@@ -1,7 +1,7 @@
 package demo.reactAdmin.crud.repos;
 
 import demo.reactAdmin.crud.entities.Product;
-import reactAdmin.rest.repositories.BaseRepository;
+import springboot.rest.repositories.BaseRepository;
 
-public interface ProductRepository extends BaseRepository<Product> {
+public interface ProductRepository extends BaseRepository<Product, Integer> {
 }

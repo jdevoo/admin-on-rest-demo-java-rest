@@ -1,7 +1,7 @@
 package demo.reactAdmin.crud.repos;
 
 import demo.reactAdmin.crud.entities.Group;
-import reactAdmin.rest.repositories.BaseRepository;
+import springboot.rest.repositories.BaseRepository;
 
-public interface GroupRepository extends BaseRepository<Group> {
+public interface GroupRepository extends BaseRepository<Group, String> {
 }

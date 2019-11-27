@@ -6,7 +6,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Service;
-import reactAdmin.rest.utils.JSON;
+import springboot.rest.utils.JSON;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -17,12 +17,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class ApiHandler {
 
-
     private final String USER_AGENT = "Mozilla/5.0";
+    static final Logger LOG = LoggerFactory.getLogger(ApiHandler.class);
+
     public String sendGet(String url, Map<String,String> headers) {
 
         URL obj = null;
@@ -40,8 +43,8 @@ public class ApiHandler {
             con.setRequestProperty("User-Agent", USER_AGENT);
 
             int responseCode = con.getResponseCode();
-            System.out.println("\nSending 'GET' request to URL : " + url);
-            System.out.println("Response Code : " + responseCode);
+            LOG.debug("GET " + url);
+            LOG.debug("Response Code " + responseCode);
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
@@ -52,13 +55,11 @@ public class ApiHandler {
                 response.append(inputLine);
             }
             in.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return response.toString();
-
     }
 
     public String sendPost(String url, String bodyJson, Map<String,String> headers) {
@@ -66,8 +67,7 @@ public class ApiHandler {
     }
 
     public String sendPatch(String url, String bodyJson, Map<String,String> headers) {
-
-        System.out.println("\nSending 'PATCH' request to URL :"+ url);
+        LOG.debug("PATCH " + url);
 
         StringBuffer result = new StringBuffer();
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -82,7 +82,7 @@ public class ApiHandler {
         StringEntity params = null;
         try {
             params = new StringEntity(bodyJson);
-            System.out.println(bodyJson);
+            LOG.debug(bodyJson);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -107,20 +107,19 @@ public class ApiHandler {
         String line = "";
         try {
             while ((line = rd.readLine()) != null) {
-                System.out.println(line);
+                LOG.debug(line);
                 result.append(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
+        LOG.debug("Response Code : " + response.getStatusLine().getStatusCode());
 
         return result.toString();
     }
 
     private String helper(String url, String bodyJson, Map<String,String> headers, String method) {
-
         URL obj = null;
         HttpURLConnection con = null;
         StringBuffer response = new StringBuffer();
@@ -146,9 +145,9 @@ public class ApiHandler {
             wr.close();
 
             int responseCode = con.getResponseCode();
-            System.out.println("\nSending 'POST' request to URL : " + url);
-            System.out.println("Post parameters : " + bodyJson);
-            System.out.println("Response Code : " + responseCode);
+            LOG.debug("POST " + url);
+            LOG.debug("Post Parameters : " + bodyJson);
+            LOG.debug("Response Code : " + responseCode);
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
@@ -159,20 +158,17 @@ public class ApiHandler {
                 response.append(inputLine);
             }
             in.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         //print result
         return response.toString();
-
     }
 
     public static class TokenValue {
-            public String token;
-        }
-
+        public String token;
+    }
 
     public String authenticate(String username, String password) {
         Map<String, String> headers = new HashMap<>();
@@ -182,4 +178,5 @@ public class ApiHandler {
         String token = obj.token;
         return token;
     }
+
 }

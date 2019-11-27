@@ -21,6 +21,7 @@ public class Customer {
     public String avatar;
     public String firstSeen;
     public String lastSeen;
+    public boolean hasOrdered;
     public boolean hasNewsletter;
 
     @ManyToMany(cascade = {CascadeType.DETACH})

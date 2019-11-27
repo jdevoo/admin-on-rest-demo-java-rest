@@ -3,9 +3,6 @@ package demo.reactAdmin.crud.entities;
 import demo.reactAdmin.crud.enums.Role;
 
 public class UserRole {
-
-
-
     protected int id;
 
     public UserRole() {
@@ -21,5 +18,4 @@ public class UserRole {
     public Role getRole() {
         return role;
     }
-
 }

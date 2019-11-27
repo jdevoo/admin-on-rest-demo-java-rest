@@ -3,7 +3,6 @@ let env_config = require('./config.'+env+'.json');
 
 let baseUrl = env_config.apiHost + env_config.apiPath;
 
-
 const config = {
 	baseUrl: baseUrl,
 	loginEndpoint: baseUrl + env_config.loginEndpoint,

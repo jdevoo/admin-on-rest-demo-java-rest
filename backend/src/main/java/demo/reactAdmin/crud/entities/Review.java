@@ -27,5 +27,4 @@ public class Review {
     @Lob @Basic(fetch = FetchType.EAGER)
     @Column(length=1000)
     public String comment;
-
 }
