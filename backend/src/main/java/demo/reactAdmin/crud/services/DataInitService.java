@@ -4,7 +4,6 @@ import demo.reactAdmin.auth.PasswordEncoderProvider;
 import demo.reactAdmin.crud.entities.Group;
 import demo.reactAdmin.crud.entities.PlatformUser;
 import demo.reactAdmin.crud.repos.ClientRepository;
-import demo.reactAdmin.crud.repos.ExampleRepository;
 import demo.reactAdmin.crud.repos.GroupRepository;
 import demo.reactAdmin.crud.repos.UserRepository;
 import demo.reactAdmin.crud.utils.ApiHandler;
@@ -25,9 +24,6 @@ import org.slf4j.LoggerFactory;
 public class DataInitService {
 
     static final Logger LOG = LoggerFactory.getLogger(DataInitService.class);
-
-    @Autowired
-    private ExampleRepository exampleRepository;
 
     @Autowired
     private ClientRepository clientRepository;

@@ -19,6 +19,7 @@ import { CommandList, CommandEdit, CommandIcon } from './commands';
 import { ProductList, ProductCreate, ProductEdit, ProductIcon } from './products';
 import { CategoryList, CategoryEdit, CategoryIcon } from './categories';
 import { ReviewList, ReviewEdit, ReviewIcon } from './reviews';
+
 import restClient from './restClient';
 
 class App extends Component {

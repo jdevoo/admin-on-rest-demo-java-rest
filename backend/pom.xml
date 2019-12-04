@@ -122,7 +122,7 @@
         <dependency>
             <groupId>com.github.jdevoo</groupId>
             <artifactId>spring-boot-rest-api-helpers</artifactId>
-            <version>514aa61</version>
+            <version>487b517</version>
         </dependency>
     </dependencies>
 

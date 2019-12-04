@@ -10,9 +10,14 @@ import springboot.rest.services.FilterService;
 import springboot.rest.entities.QueryParamWrapper;
 import springboot.rest.utils.QueryParamExtractor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("api/v1")
 public class CommandController {
+
+    static final Logger LOG = LoggerFactory.getLogger(CommandController.class);
 
     @Autowired
     private FilterService<Command, Integer> filterService;
@@ -26,6 +31,7 @@ public class CommandController {
     @RequestMapping(value = "commands", method = RequestMethod.POST)
     public Command create(@RequestBody Command command) {
         for (QuantifiedProduct qp: command.basket) {
+            LOG.debug(qp.toString());
             productRepo.findById(qp.productId).ifPresent(p -> { qp.product = p; });
         }
         return repo.save(command);

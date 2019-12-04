@@ -21,8 +21,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.ServletContext;
 
-@SpringBootApplication(scanBasePackages = {"demo.reactAdmin", "springboot.rest"})
 @EnableSwagger2
+@SpringBootApplication(scanBasePackages = {"demo.reactAdmin", "springboot.rest"})
 public class ReactAdminDemoApplication extends WebMvcAutoConfiguration {
 
     @Autowired
@@ -58,12 +58,6 @@ public class ReactAdminDemoApplication extends WebMvcAutoConfiguration {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .pathProvider(new RelativePathProvider(servletContext) {
-                    @Override
-                    public String getApplicationBasePath() {
-                        return "/api/v1";
-                    }
-                })
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())

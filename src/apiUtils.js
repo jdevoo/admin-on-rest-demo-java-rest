@@ -11,7 +11,7 @@ export default class APIUtils {
         s4() + '-' + s4() + s4() + s4();
     }
 
-    /***** Request utils *****/
+    /***** request utils *****/
 
     static createDummyEntities(params, results) {
         if (!params.hasOwnProperty("ids")) {
@@ -49,6 +49,7 @@ export default class APIUtils {
     }
 
     /***** Response utils *****/
+
     static prepareGetListResponse(rows, embeddedKeys) {
         return rows.map(function (row) {
             return APIUtils.oneRowResponseHelper(row, embeddedKeys, true);
@@ -69,7 +70,6 @@ export default class APIUtils {
 
     static oneRowResponseHelper(row, embeddedKeys, rowInList) {
         let result = {};
-
         for (let [key,val] of Object.entries(row)) {
             let valIsNumber = Number.isInteger(val);
             let valIsEmbedded = embeddedKeys.indexOf(key) > -1;
@@ -86,7 +86,16 @@ export default class APIUtils {
                 result[key] = val;
             }
             else if (valIsObjectArray) {
-                result[key] = val.map((el) => { return el.id });
+              result[key] = [];
+              val.forEach((v) => {
+                if (Object.keys(v).length === 1) {
+                    result[key] = val.map((el) => { return el.id });
+                } else {
+                    let new_val = {};
+                    Object.keys(v).forEach((k) => { if (typeof(v[k]) !== "object") new_val[k] = v[k] });
+                    result[key].push(new_val);
+                }
+              });
             }
             else if (valIsNumberArray) {
                 result[key] = val;
@@ -104,8 +113,8 @@ export default class APIUtils {
         return result;
     }
 
+    /***** url utils *****/
 
-    /***** Url utils *****/
     static createUrlQuery(params) {
         if (!params) {
             return "";
@@ -142,6 +151,7 @@ export default class APIUtils {
     }
 
     /***** options utils *****/
+
     static createOptionsForImageUpload(post_data) {
         let options = {};
         let csrf_token = localStorage.getItem('csrf_token');
@@ -165,7 +175,6 @@ export default class APIUtils {
             'X-Authorization': 'Bearer '+csrf_token
         });
 
-        // options.credentials = "include";
         return options;
     }
 
@@ -198,6 +207,7 @@ export default class APIUtils {
     }
 
     /**** filter utils ****/
+
     static prepAuthorizeFilter(filters) {
         if (!filters) {
             return {};

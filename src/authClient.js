@@ -67,7 +67,6 @@ class UserHandler {
 export default (type, params) => {
     // called when the user attempts to log in
     if (type === AUTH_LOGIN) {
-        console.log('auth_login');
         const { username, password } = params;
         localStorage.setItem('username', username);
         let requestLogin = UserHandler.login(username, password);
@@ -85,13 +84,11 @@ export default (type, params) => {
     }
     // called when the user clicks on the logout button
     else if (type === AUTH_LOGOUT) {
-        console.log('auth_logout');
         UserHandler.logoutCallback();
         return Promise.resolve();
     }
     // called when the API returns an error
     else if (type === AUTH_ERROR) {
-        console.log('auth_error');
         const { status } = params;
         if (status === 401 || status === 403) {
             UserHandler.logoutCallback();
@@ -101,7 +98,6 @@ export default (type, params) => {
     }
     // called when the user navigates to a new location
     else if (type === AUTH_CHECK) {
-        console.log('auth_check');
         const { resource } = params;
         // TODO: possibly can be used with roles per resource
         if (resource === 'dashboard') {

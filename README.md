@@ -1,18 +1,14 @@
 # Admin-on-Rest Demo + Java Spring Boot/MySQL REST Backend
 
-This is a Spring-based demo of the [admin-on-rest](https://github.com/marmelab/admin-on-rest) library for React.js. It creates a working administration for a fake poster shop named Posters Galore.
+This is a Spring-based demo of the [admin-on-rest](https://marmelab.com/admin-on-rest) library for React.js. It creates a working administration for a fake poster shop named Posters Galore.
 
 Admin-on-rest requires a REST server which is provided in this bundle in the /backend folder.
-
-To explore the source code, start with [src/index.js](https://github.com/marmelab/admin-on-rest-demo/blob/master/src/index.js).
-
-**Note**: This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 ## Front-End 
 
 In the project directory /src, you can run:
 
-### `npm start`
+`npm start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -20,30 +16,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](#running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-### `npm run deploy`
-
-Deploy the build to GitHub gh-pages.
-
 ## Back-End
 
-This backend implementation is the result of considerable effort to use admin-on-rest as front-end but migrate away from FakeRest (JS) to Java Spring backend/MySQL. The main reasons including: lack of versioning for backend changes (we had to take data dumps and keep a txt with changes), time consuming configuration of Views involving many entities and fields, in need of many (some times non-existing) plugins to do common things, not native REST implementation, queries involving a ton of tables due to Drupal field reusability among different nodes, difficulty combining Drupal tables with flat tables for big-data and analytics, etc.
+This backend implementation allows the use of admin-on-rest as front-end replacing FakeRest (JS) with Java Spring backend/MySQL.
 
 ## Configuration
 
-You need a database called demo. The credentials are being configured in application.properties. Open the project using existing resources and select Maven from IntelliJ Idea menu. Run ReactAdminDemoApplication.java that will start a Java Spring Boot Application on http://localhost:8080
+Create a database called demo in MySQL. The credentials are being configured in application.properties. Run with mvn spring-boot:run or from jar.
 
 ### Features
 

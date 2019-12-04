@@ -98,7 +98,7 @@ const mapStateToProps = (state, props) => {
     const { record: { basket } } = props;
     const productIds = basket.map(item => item.product_id);
     return {
-        products: productIds
+      products: productIds
             .map(productId => state.admin.resources.products.data[productId])
             .filter(r => typeof r !== 'undefined')
             .reduce((prev, next) => {

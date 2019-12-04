@@ -69,7 +69,7 @@ export default class DefaultEntity {
     getListWithFilterRequest(params) {
         let urLQuery = APIUtils.createUrlQuery(params);
         let url = this.apiEndpoint +"?"+ urLQuery;
-      let options = APIUtils.createOptionsForGET();
+        let options = APIUtils.createOptionsForGET();
         return {url, options};
     }
 

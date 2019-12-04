@@ -32,20 +32,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String FILE_ENDPOINT = "/api/v1/file/**";
 
-    public static final String SWAGGER_UI_PATH = "/api/v1/swagger-ui.html";
+    public static final String[] SWAGGER_PATHS = new String[]{
+        "/v2/api-docs",
+        "/swagger-ui.html",
+        "/swagger-resources/**",
+        "/webjars/**"
+    };
 
     @Autowired
     private MyUserDetailsService userDetailsService;
 
     @Autowired
     private PasswordEncoderProvider passwordEncoderProvider;
-
-    @Override
-    public void configure(WebSecurity web) {
-        super.configure(web);
-        web.httpFirewall(allowUrlEncodedDoubleSlashHttpFirewall());
-        web.ignoring().antMatchers(SWAGGER_UI_PATH);
-    }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -70,17 +68,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http    .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-      //        .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.POST, LOGIN_ENDPOINT).permitAll()
+                .antMatchers(SWAGGER_PATHS).permitAll()
       //        .antMatchers(HttpMethod.GET, FILE_ENDPOINT).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // We filter the api/login requests
                 .addFilter(new JWTLoginFilter(authenticationManager()))
-                        //UsernamePasswordAuthenticationFilter.class)
                 // And filter other requests to check the presence of JWT in header
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                        //UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
@@ -102,13 +98,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder encoder() {
         return passwordEncoderProvider.getEncoder();
-    }
-
-    @Bean
-    public HttpFirewall allowUrlEncodedDoubleSlashHttpFirewall() {
-        StrictHttpFirewall firewall = new StrictHttpFirewall();
-        firewall.setAllowUrlEncodedDoubleSlash(true);
-        return firewall;
     }
 
 }
