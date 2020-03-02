@@ -4,9 +4,21 @@ This is a Spring-based demo of the [admin-on-rest](https://marmelab.com/admin-on
 
 Admin-on-rest requires a REST server which is provided in this bundle in the /backend folder.
 
+## Back-End
+
+This backend implementation allows the use of admin-on-rest as front-end replacing FakeRest (JS) with Java Spring backend/MySQL.
+
+Start a docker container running mysql, then exec into it and create a database called `demo`
+
+`docker run --name mysql --rm -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7`
+
+Start Spring Boot application
+
+`mvn spring-boot:run`
+
 ## Front-End 
 
-In the project directory /src, you can run:
+Finally, launch the front-end. In the project directory /src, you can run:
 
 `npm start`
 
@@ -15,10 +27,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
-
-## Back-End
-
-This backend implementation allows the use of admin-on-rest as front-end replacing FakeRest (JS) with Java Spring backend/MySQL.
 
 ## Configuration
 
@@ -39,7 +47,6 @@ Create a database called demo in MySQL. The credentials are being configured in 
 - Automatic wrapping of responses in "content" using `@ControllerAdvice` provided by https://github.com/zifnab87/react-admin-java-rest/blob/master/src/main/java/reactAdmin/rest/controllerAdvices/WrapperAdvice.java
 - Automatic calculation total number of results returned and addition of that number in `X-Total-Count` response header provided as `@ControllerAdvice` by https://github.com/zifnab87/react-admin-java-rest/blob/master/src/main/java/reactAdmin/rest/controllerAdvices/ResourceSizeAdvice.java
 - Automatic deserialization of entities by their ids only during POST/PUT, using `@JsonCreator` annotations over constructors of Entities - see here for explanation: https://stackoverflow.com/questions/46603075/single-custom-deserializer-for-all-objects-as-their-ids-or-embedded-whole-object
-
 
 ### Future work
 

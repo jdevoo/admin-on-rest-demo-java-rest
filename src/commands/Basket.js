@@ -17,6 +17,7 @@ class Basket extends Component {
         this.fetchData();
     }
     fetchData() {
+        console.log(JSON.stringify(this.props));
         const { record: { basket }, crudGetMany } = this.props;
         crudGetMany('products', basket.map(item => item.product_id));
     }

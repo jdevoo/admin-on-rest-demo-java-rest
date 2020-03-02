@@ -159,7 +159,7 @@ export default class APIUtils {
         options.body = post_data;
         options.headers = new Headers({
             'X-Authorization': 'Bearer '+csrf_token,
-           'Content-Transfer-Encoding': 'base64',
+            'Content-Transfer-Encoding': 'base64',
         });
 
         options.credentials = "include";

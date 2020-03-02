@@ -24,7 +24,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.2.0.RELEASE</version>
+                <version>2.2.1.RELEASE</version>
                 <executions>
                     <execution>
                         <goals>
@@ -62,7 +62,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
-                <version>2.2.0.RELEASE</version>
+                <version>2.2.2.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -122,8 +122,15 @@
         <dependency>
             <groupId>com.github.jdevoo</groupId>
             <artifactId>spring-boot-rest-api-helpers</artifactId>
-            <version>487b517</version>
+            <version>6f87f2b</version>
         </dependency>
+<!--
+        <dependency>
+            <groupId>spring-boot-rest-api-helpers</groupId>
+            <artifactId>spring-boot-rest-api-helpers</artifactId>
+            <version>0.5.0.RELEASE</version>
+        </dependency>
+-->
     </dependencies>
 
 </project>
