@@ -122,13 +122,13 @@
         <dependency>
             <groupId>com.github.jdevoo</groupId>
             <artifactId>spring-boot-rest-api-helpers</artifactId>
-            <version>6f87f2b</version>
+            <version>1b29512</version>
         </dependency>
 <!--
         <dependency>
             <groupId>spring-boot-rest-api-helpers</groupId>
             <artifactId>spring-boot-rest-api-helpers</artifactId>
-            <version>0.5.0.RELEASE</version>
+            <version>0.7.0.RELEASE</version>
         </dependency>
 -->
     </dependencies>
